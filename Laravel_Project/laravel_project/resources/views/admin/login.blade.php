@@ -1,4 +1,5 @@
-<?php $url_array = explode('/', $_SERVER['REQUEST_URI']); // current page url
+<?php 
+$url_array = explode('/', $_SERVER['REQUEST_URI']); // current page url
 $url = end($url_array);
 $title = $url;
 
@@ -57,37 +58,39 @@ function active($currect_page)
         <div class="container py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
-                    <h1 class="position-relative text-center mb-5 "><i
+                    <h1 class="position-relative text-center mb-3"><i
                             class="bi bi-person-circle display-1 text-primary"></i></h1>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-7">
-                    <div class="contact-form bg-light rounded p-5">
-                        <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                    <div class=" bg-light rounded p-4">
+
+                        <form action="{{url('/admin-login')}}" method="post">
+                            @csrf
                             <div class="form-row">
                                 <div class="col-sm-12 control-group">
-                                    <span class="float-start" style="color:#888c8d; margin-left:12px;">Username</span>
-                                        <input type="text" class="form-control p-4 " id="name" placeholder="Enter Your Username"
-                                            required="required"
-                                            data-validation-required-message="Please enter your name" />
-                                        <p class="help-block text-danger"></p>
+                                    <span class="float-start" style="color:#888c8d; margin-left:12px;">Admin
+                                        Email</span>
+                                    <input type="text" class="form-control p-4 " name="email" placeholder="Enter Admin Email" />
+                                    @error('email')
+                                    <p class="help-block text-danger">{{$message}}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-sm-12 control-group">
-                                <span class="float-start" style="color:#888c8d; margin-left:12px;">Password</span>
-                                        <input type="password" class="form-control p-4" id="name" placeholder="Enter Your Password "
-                                            required="required"
-                                            data-validation-required-message="Please enter your name" />
-                                        <p class="help-block text-danger"></p>
+                                    <span class="float-start" style="color:#888c8d; margin-left:12px;">Password</span>
+                                    <input type="password" class="form-control p-4" name="password" placeholder="Enter Your Password " />
+                                        @error('password')
+                                    <p class="help-block text-danger">{{$message}}</p>
+                                    @enderror
+
                                 </div>
                             </div>
-                           
+
                             <div>
-                                <button class="btn btn-primary btn-block py-3 px-5" type="submit"
-                                    id="sendMessageButton">Login</button>
+                                <button class="btn btn-primary btn-block py-3 px-5 mb-5" type="submit">Login</button>
                             </div>
                         </form>
                     </div>
@@ -140,7 +143,6 @@ function active($currect_page)
     <!-- Back to Top -->
     <a href="#" class="btn btn-secondary px-2 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
@@ -156,6 +158,8 @@ function active($currect_page)
 
     <!-- Template Javascript -->
     <script src="{{url('admin/js/main.js')}}"></script>
+
+
 </body>
 
 </html>

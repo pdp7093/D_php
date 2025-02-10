@@ -6,7 +6,7 @@ use App\Models\product;
 use App\Models\category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use RealRashid\SweetAlert\Facades\Alert;
 class ProductController extends Controller
 {
     /**
@@ -15,9 +15,15 @@ class ProductController extends Controller
     public function index()
     {
         //
-        return view('website.product_detail');
+       
     }
-
+    public function product_show($id)
+    {
+       $cid=$id;
+      
+       $data=product::where('cate_id','=',$cid)->get();
+        return view('website.product_detail',['data'=>$data]);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -48,18 +54,19 @@ class ProductController extends Controller
         $insert=new product();
 
         $insert->cate_id=$request->category;
-        $insert->p_name=$request->product_title;
-        $insert->p_price=$request->product_price;
-        $insert->p_weight=$request->product_weight;
-        $insert->p_descp=$request->product_descp;
-        $insert->qty=$request->qty;
+        $insert->product_title=$request->product_title;
+        $insert->product_price=$request->product_price;
+        $insert->product_weight=$request->product_weight;
+        $insert->product_descp=$request->product_descp;
+        $insert->p_qty=$request->qty;
 
         $file=$request->file('product_image');
         $filename=time().'Product.'.$request->file('product_image')->getClientOriginalExtension();
         $file->move('admin/img/Product/',$filename);
-        $insert->p_image=$filename;
+        $insert->product_image=$filename;
 
         $insert->save();
+        Alert::success('Product Insert','Product Insert Successfully');
         return redirect('/Manage_Products');
 
     }
@@ -71,7 +78,7 @@ class ProductController extends Controller
     {
         //
         $data=product::join('categories','products.cate_id','=','categories.id')
-            ->get(['products.*','categories.category_name']);
+            ->get(['products.*','categories.categories_title']);
         //$data=product::all();
         return view('admin.manage_products',['data'=>$data]);
     }
@@ -99,6 +106,7 @@ class ProductController extends Controller
     {
         //
         $data=product::find($id)->delete();
+        Alert::success('Delete Success','Product Delete Successfully');
         return redirect('/Manage_Products');
     }
 }

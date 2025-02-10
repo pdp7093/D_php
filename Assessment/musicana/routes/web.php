@@ -11,3 +11,7 @@ Route::get('/About', function () {
 Route::get('/Track', function () {
     return view('website.track');
 });
+
+Route::get('/Register', function () {
+    return view('website.signup');
+});

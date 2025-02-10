@@ -4,7 +4,7 @@
 <!-- Header Start -->
 <div class="jumbotron jumbotron-fluid page-header" style="margin-bottom: 90px;">
     <div class="container-fluid text-center py-5">
-        <h1 class="text-white display-3 mt-lg-5">Prodcuts</h1>
+        <h1 class="text-white display-3 mt-lg-5">Orders</h1>
 
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="">
             <ol class="breadcrumb d-flex justify-content-center">
@@ -33,7 +33,7 @@
                     Orders</a>
                 <div class="contact-form bg-light rounded p-5 ">
                     <div id="success"></div>
-                    <table class="table table-hovertable-responsive col mt-5 text-center">
+                    <table class="table table-hover table-responsive col mt-5 text-center">
 
                         <thead class="bg-primary text-white">
                             <tr>
@@ -44,22 +44,26 @@
                                 <th>Weight</th>
                                 <th>Total Amount</th>
                                 <th>Orders Status</th>
-                                <th>Action</th>
+                                <th colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @php($no = 0)
                             @foreach ($data as $o)
                                 <tr>
-                                    <td>1</td>
-                                    <td>{{$o->p_name}}</td>
-                                    <td>{{$o->firstname.$o->lastname}}</td>
+                                    <td>{{++$no}}</td>
+                                    <td>{{$o->product_title}}</td>
+                                    <td>{{$o->firstname}}   {{ $o->lastname}}</td>
                                     <td>{{$o->o_qty}}</td>
-                                    <td>{{$o->p_weight}}</td>
+                                    <td>{{$o->product_weight}}</td>
                                     <td>{{$o->total_amount}}</td>
                                     <td>{{$o->o_status}}</td>
                                     <td>
                                         <a href="edit_products" class="btn  btn-outline-primary">Edit</a>
-                                        <a href="{{url('/Manage_Orders/'.$o->id)}}" class="btn  btn-outline-warning">Delete</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{url('/Manage_Orders/' . $o->id)}}"
+                                            class="btn  btn-outline-warning">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

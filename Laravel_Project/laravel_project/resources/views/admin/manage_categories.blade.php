@@ -28,11 +28,11 @@
         </div>
         <div class="row justify-content-center overflow-auto">
 
-            <div class="col-lg-11">
+            <div class="col-lg-8">
                 <a href="Add_Categories" class="float-right btn btn-info btn-lg rounded-pill mx-5 mt-4 rounded-3">Add Categories</a>
-                <div class="contact-form bg-light rounded p-5 mystyle">
-                    <div id="success"></div>
-                    <table class="table caption-top table-hover table-responsive col mt-5 text-center">
+                <div class=" contact-form bg-light rounded p-3  mystyle">
+                    
+                <table class="table table-hover table-responsive mt-5 p-3 text-center" >
                         
                         <thead class="bg-primary text-white">
                             <tr>
@@ -48,11 +48,11 @@
                             
                             <tr>
                                 <td>{{$no++}}</td>
-                                <td>{{$c->category_name}}</td>
-                                <td><img src="{{url('admin/img/Category/'.$c->category_image)}}" alt="{{$c->category_image}}" width="50rm"></td>
+                                <td>{{$c->categories_title}}</td>
+                                <td><img src="{{url('admin/img/Category/'.$c->categories_image)}}" alt="{{$c->category_image}}" width="50rm"></td>
                                 <td>
                                     <a href="edit_categories" class="btn  btn-outline-primary">Edit</a>
-                                    <a href="edit_categories" class="btn  btn-outline-warning">Delete</a>
+                                    <a href="{{url('/Manage_Categories/'.$c->id)}}"  class="btn  btn-outline-warning">Delete</a>
                                 </td>
                             </tr>
                             @endforeach

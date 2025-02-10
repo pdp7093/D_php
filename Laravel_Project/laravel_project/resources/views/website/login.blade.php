@@ -29,6 +29,7 @@
 </head>
 
 <body>
+@include('sweetalert::alert')
 
     <div class="container">
         <div class="text-center header">
@@ -36,39 +37,42 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <form action="" method="post" class="border border-dark p-2" id="login_form">
-
+                <form action="{{url('/Login')}}" method="post" class="border border-dark p-2" id="login_form">
+                    @csrf
                     <div class="login-input-main mx-2 mt-5">
                         <div class="input-group flex-nowrap login-input loginInputWithIcon ">
                             <span class="input-group-text loginInputIcon"><i class="bi bi-person-fill"></i></span>
-                            <input type="text" name="username" value="" id="login" maxlength="50" size="30"
-                                placeholder="Username or Email" class="form-control logininput" autocomplete="disabled"
-                                autofill="off" >
+                            <input type="email" name="email"id="login" size="30"
+                                placeholder="Enter Register Email" class="form-control logininput" >
                         </div>
                         <!-- <input type="text" class="form-control"  placeholder="Type User Name"> -->
-                        <p id="errorlogin" style="color: red;"></p>
+                        @error('email')
+                        <p style="color: red;">{{$message}}</p>
+                        @enderror
+                        
                     </div>
 
                     <div class="login-input-main mx-2">
                         <div class="input-group flex-nowrap login-input loginInputWithIcon mt-4">
                             <span class="input-group-text loginInputIcon" id="addon-wrapping"><i
                                     class="bi bi-lock-fill"></i></span>
-                            <input type="password" name="password" value="" id="password" size="30"
-                                placeholder="Password" class="form-control" autocomplete="disabled" autofill="off">
-
+                            <input type="password" name="password" 
+                                placeholder="Enter Password" class="form-control">
                         </div>
-                        <p id="errorpwd" style="color: red;"></p>
+                        @error('password')
+                        <p style="color: red;">{{$message}}</p>
+                        @enderror
                     </div>
-                    <div class="form-group m-2 p-3">
 
-                        <a href="#" class="float-right" style="text-decoration: underline;">Forogot Password?</a>
+                    <div class="form-group m-2 p-3">
+                        <a href="#" class="float-right text-primary" style="text-decoration: underline;">Forogot Password?</a>
                     </div>
                     <div class="form-group mx-3 p-3">
                         <button class="bg-primary btn-lg text-white btn-block rounded-pill" type="submit">Login<i
                                 class="bi bi-door-open"></i></button>
                     </div>
                     <div class="form-group mt-2 mb-2 p-3 text-center">
-                        <a href="#" class=" text-info space" style="text-decoration: underline;">Create An
+                        <a href="Signup" class=" text-info space" style="text-decoration: underline;">Create An
                             Account</a>
                     </div>
                 </form>

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     /**
@@ -23,6 +24,35 @@ class AdminController extends Controller
     {
         //
     }
+    public function adminlogin(Request $request)
+    {
+        //Admin Login
+        $validated=$request->validate(['email'=>'required','password'=>'required']);
+        
+        $data = admin::where('email', $request->email)->first();
+        if($data)
+        {
+            if (Hash::check($request->password, $data->password)) {
+                session()->put('aemail', $data->email);
+                session()->put('uid', $data->id);
+                Alert::success('Login Success', "Admin Login Successfully");
+                return redirect('/dashboard');
+            }
+            else
+            {
+                Alert::error('Login Failed', "Detail Not Match!");
+                return redirect('/admin-login');
+            }
+        }
+    }
+    public function adminlogout()
+    {
+        
+        session()->pull('aemail');
+        session()->pull('aid');
+        Alert::success('Logout Success', "Admin Logout Successful");
+        return redirect('/admin-login');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -30,10 +60,6 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
-        $validated = $request->validate([
-            'categories_title' => 'required|unique:categories|max:255',
-            'categories_image' => 'required|image',
-        ]);
         
     }
 
@@ -43,6 +69,7 @@ class AdminController extends Controller
     public function show(admin $admin)
     {
         //
+        return view('admin.login');
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use RealRashid\SweetAlert\Facades\Alert;
 class ContactController extends Controller
 {
     /**
@@ -32,8 +32,11 @@ class ContactController extends Controller
     {
         //Form Validation
         $validated = $request->validate([
-            'categories_title' => 'required|unique:categories|max:255',
-            'categories_image' => 'required|image',
+            'name' => 'required',
+            'email' => 'required',
+            'subject' => 'required',
+            'message' => 'required',
+            
         ]);
         //Insert Data
 
@@ -42,9 +45,8 @@ class ContactController extends Controller
         $insert->email=$request->email;
         $insert->subject=$request->subject;
         $insert->message=$request->message;
-
-        
         $insert->save();
+        Alert::success('Insert Success','Message Deliverd Successfully');
         return redirect('/Contact');
     }
 
@@ -81,6 +83,7 @@ class ContactController extends Controller
     {
         //
         $data=contact::find($id)->delete();
+        Alert::success('Delete Success','Contact Delete Successfully');
         return redirect('/Manage_Contact');
     }
 }

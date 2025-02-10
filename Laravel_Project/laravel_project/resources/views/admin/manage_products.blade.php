@@ -24,7 +24,7 @@
             <div class="col-lg-6">
                 <h1 class="section-title position-relative text-center mb-5">Manage Products</h1>
 
-            </div>
+            </div> 
         </div>
         <div class="row justify-content-center">
 
@@ -33,8 +33,7 @@
                     Products</a>
                 <div class="contact-form bg-light">
                     
-                    <table class="table table-bordered table-hover table-responsive mt-5 p-3 text-center">
-
+                    <table class="table table-hover table-responsive mt-5 p-3 text-center">
                         <thead class="bg-primary text-white">
                             <tr>
                                 <th>NO.</th>
@@ -43,7 +42,7 @@
                                 <th>Products Image</th>
                                 <th>Products Weight</th>
                                 <th>Products Price</th>
-                                <th>Products Descp</th>
+                                <th colspan="3">Products Descp</th>
                                 <th>Products Qty</th>
                                 <th>Products Status</th>
                                 <th colspan="2">Action</th>
@@ -51,15 +50,15 @@
                         </thead>
                         <tbody>
                             @foreach ($data as $mp)
-                                <tr>
+                                <tr style="height:50px; border:2px solid black">
                                     <td>{{$mp->id}}</td>
-                                    <td>{{$mp->category_name}}</td>
-                                    <td>{{$mp->p_name}}</td>
-                                    <td><img src="{{url('admin/img/Product/'.$mp->p_image)}}" alt="Dummy Data" width="50rm"></td>
-                                    <td>{{$mp->p_weight}}</td>
-                                    <td>{{$mp->p_price}}</td>
-                                    <td>{{$mp->p_descp}}</td>
-                                    <td>{{$mp->qty}}</td>
+                                    <td>{{$mp->categories_title}}</td>
+                                    <td>{{$mp->product_title}}</td>
+                                    <td><img src="{{url('admin/img/Product/'.$mp->product_image)}}" alt="Dummy Data" width="50rm"></td>
+                                    <td>{{$mp->product_weight}}</td>
+                                    <td >{{$mp->product_price}}</td>
+                                    <td colspan="3" >{{$mp->product_descp}}</td>
+                                    <td>{{$mp->p_qty}}</td>
                                     <td>{{$mp->p_status}}</td>
                                     <td>
                                         <a href="edit_products" class="btn  btn-outline-primary">Edit</a>

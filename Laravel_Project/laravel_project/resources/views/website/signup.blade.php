@@ -36,31 +36,46 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <form action="/Signup" method="post" class="border border-dark p-2" id="login_form" enctype="multipart/form-data">
+                <form action="/Signup" method="post" class="border border-dark p-2" id="login_form"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="form-group mt-2 mb-3 row">
                         <label for="" class="col-lg-12">Enter Full Name</label><br>
                         <div class="col-lg-6">
                             <input type="text" name="firstname" id="firstname" placeholder="Enter Firstname"
                                 class="form-control">
+                            @error('firstname')
+                                <p class="help-block text-danger">{{$message}}</p>
+                            @enderror
                         </div>
                         <div class="col-lg-6">
                             <input type="text" name="lastname" id="lastname" placeholder="Enter Lastname"
                                 class="form-control">
+                                @error('lastname')
+                                <p class="help-block text-danger">{{$message}}</p>
+                            @enderror
                         </div>
+
                     </div>
-                   
+
                     <div class="form-group  mb-3">
                         <label for="email">Enter Your Email</label>
                         <input type="email" name="email" id="email" placeholder="Enter email" class="form-control">
+                        @error('email')
+                                <p class="help-block text-danger">{{$message}}</p>
+                            @enderror
                     </div>
+
                     <div class="form-group  mb-3">
-                    <label for="mobile">Enter Your Mobile Number</label>
+                        <label for="mobile">Enter Your Mobile Number</label>
                         <input type="text" name="mobile" id="mobile" placeholder="Enter mobile number"
                             class="form-control">
+                            @error('mobile')
+                                <p class="help-block text-danger">{{$message}}</p>
+                            @enderror
                     </div>
                     <div class="form-group">
-                    <label for="gender">Select Your Gender</label>
+                        <label for="gender">Select Your Gender</label>
 
                         <div class="form-check mb-3 mt-2">
                             <input type="radio" name="gender" value="Male" class="form-check-input" id="Male">
@@ -74,32 +89,40 @@
                                 Female
                             </label>
                         </div>
+                        @error('gender')
+                                <p class="help-block text-danger">{{$message}}</p>
+                            @enderror
                     </div>
+
                     <div class="form-group">
                         <label for="image">Upload Your Profile Image</label>
                         <input type="file" name="image" id="image" class="form-control">
+                        @error('image')
+                                <p class="help-block text-danger">{{$message}}</p>
+                            @enderror
                     </div>
+
                     <div class="form-group  mb-3">
-                    <label for="password">Enter Your Password</label>
+                        <label for="password">Enter Your Password</label>
                         <input type="password" name="password" id="password" placeholder="Enter password"
                             class="form-control">
+                            @error('password')
+                                <p class="help-block text-danger">{{$message}}</p>
+                            @enderror
                     </div>
+
                     <div class="form-group mx-3 p-3">
                         <button class="bg-primary btn-lg text-white btn-block rounded-pill" type="submit">Signup<i
                                 class="bi bi-box-arrow-in-right"></i></button>
                     </div>
                     <div class="form-group mt-2 mb-2 p-3 text-center">
-                        <a href="Login" class=" text-info space" style="text-decoration: underline;">Already Have
+                        <a href="Login" class=" text-info space " style="text-decoration: underline;">Already Have
                             Account</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-
-
-
     <!-- Footer Start -->
     <div class="container-fluid footer bg-light py-5" style="margin-top: 90px;">
         <div class="container text-center py-5">

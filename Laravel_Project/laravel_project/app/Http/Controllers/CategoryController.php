@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use RealRashid\SweetAlert\Facades\Alert;
 class CategoryController extends Controller
 {
     /**
@@ -17,7 +17,7 @@ class CategoryController extends Controller
         $data=category::all();
         return view('website.product',['data'=>$data]);
     }
-
+   
     /**
      * Show the form for creating a new resource.
      */
@@ -39,13 +39,13 @@ class CategoryController extends Controller
         ]);
 
         $insert=new category();
-        $insert->category_name=$request->categories_title;
+        $insert->categories_title=$request->categories_title;
         $file=$request->file('categories_image');
         $filename=time().'Category.'.$request->file('categories_image')->getClientOriginalExtension();
         $file->move('admin/img/Category/',$filename);
-        $insert->category_image=$filename;
-
+        $insert->categories_image=$filename;
         $insert->save();
+        Alert::success('Category Insert','Category Insert Successfully');
         return redirect('/Manage_Categories');
     }
 
@@ -78,8 +78,12 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(category $category)
+    public function destroy(category $category,$id)
     {
-        //
+        //Delete Category
+        $data=category::find($id)->delete();
+        Alert::success('Category Delete','Category Delete Successfully');
+        return redirect('/Manage_Categories');
     }
 }
+

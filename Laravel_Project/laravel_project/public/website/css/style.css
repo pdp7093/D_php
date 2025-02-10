@@ -6367,7 +6367,7 @@ a.close.disabled {
 a.bg-primary:hover, a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-  background-color: #eb6891 !important;
+  background-color: #f7de54 !important;
 }
 
 .bg-secondary {
@@ -9819,7 +9819,7 @@ h6,
 }
 
 .page-header {
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/header_sweet.JPG), no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/header_sweet.JPG), no-repeat repeat center ;
   background-size: cover;
 }
 

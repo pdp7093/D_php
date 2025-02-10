@@ -71,7 +71,7 @@ function active($currect_page)
                                         <ul id="navigation">
                                             <li><a class="<?php echo active('index'); ?>" href="/">home</a></li>
                                             <li><a href="About" class="<?php echo active('About'); ?>">About</a></li>
-                                            
+
                                             <li><a href="Track" class="<?php echo active('Tracks'); ?>">tracks</a></li>
                                             <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
@@ -81,7 +81,7 @@ function active($currect_page)
                                             </li>
                                             <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
-                                                     <li><a href="elements">elements</a></li>
+                                                    <li><a href="elements">elements</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="contact">Contact</a></li>
@@ -90,12 +90,8 @@ function active($currect_page)
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                                <div class="social_icon text-right">
-                                    <ul>
-                                        <li><a href="#"> <i class="fa fa-facebook"></i> </a></li>
-                                        <li><a href="#"> <i class="fa fa-twitter"></i> </a></li>
-                                        <li><a href="#"> <i class="fa fa-instagram"></i> </a></li>
-                                    </ul>
+                                <div class="float-right ">
+                                    <a href="Profile" class="btn btn-lg text-white border rounded-pill">Profile</a>
                                 </div>
                             </div>
                             <div class="col-12">

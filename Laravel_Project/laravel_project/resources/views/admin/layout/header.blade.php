@@ -44,6 +44,8 @@ function active($currect_page)
 </head>
 
 <body>
+    @include('sweetalert::alert')
+
     <!-- Topbar Start -->
     <div class="container-fluid bg-primary py-3 d-none d-md-block">
         <div class="container">
@@ -57,6 +59,7 @@ function active($currect_page)
                         <a class="text-white pl-3" href="">Support</a>
                     </div>
                 </div>
+
                 <div class="col-md-6 text-center text-lg-right">
                     <div class="d-inline-flex align-items-center">
                         <a class="text-white px-3" href="">
@@ -111,9 +114,15 @@ function active($currect_page)
                         <a href="Manage_Contact"
                             class="nav-item nav-link <?php echo active('Manage_Contact'); ?>">Contact</a>
 
-
-
                     </div>
+                    <div class="navbar-nav ml-auto py-0 mx-5">
+                        @if(session('aemail'))
+                        <a href="{{url('admin-logout')}}" class="btn btn-outline-danger">Logout</a>
+                        @else
+                        <a href="{{url('admin-login')}}" class="btn btn-outline-primary">Admin Login</a>
+                        @endif
+                    </div>
+
                 </div>
             </nav>
         </div>

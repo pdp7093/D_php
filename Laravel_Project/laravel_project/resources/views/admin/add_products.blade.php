@@ -46,7 +46,7 @@
                             <select name="category" class="form-select mx-3">
                                 <option>Select an Option</option>
                                 @foreach ($data as $c)
-                                    <option value="{{$c->id}}">{{$c->category_name}}</option>
+                                    <option value="{{$c->id}}">{{$c->categories_title}}</option>
                                 @endforeach()
                             </select>
                             @error('category')

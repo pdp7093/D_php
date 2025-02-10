@@ -52,7 +52,6 @@
                                 <td><?php echo $contact->subject?></td>
                                 <td><?php echo $contact->message?></td>
                                 <td>
-                                    <a href="edit_categories" class="btn  btn-outline-primary">Edit</a>
                                     <a href="{{url('Manage_Contact/'.$contact->id)}}" class="btn  btn-outline-warning">Delete</a>
                                 </td>
                             </tr>

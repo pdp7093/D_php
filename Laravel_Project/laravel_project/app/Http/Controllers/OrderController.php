@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use RealRashid\SweetAlert\Facades\Alert;
 class OrderController extends Controller
 {
     /**
@@ -41,7 +41,7 @@ class OrderController extends Controller
        
         $data=order::join('products','orders.pro_id','=','products.id')
                     ->join('customers','orders.cust_id','=','customers.id')
-                    ->get(['orders.*','products.p_name','customers.firstname','customers.lastname']);
+                    ->get(['orders.*','products.product_title','product_weight','customers.firstname','customers.lastname']);
         return view('admin.manage_orders',['data'=>$data]);
     }
 
