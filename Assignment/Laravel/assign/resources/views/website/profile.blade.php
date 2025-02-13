@@ -28,9 +28,9 @@ function active($currect_page)
 </head>
 
 <body>
-
+@include('sweetalert::alert')
     <!--Header Section-->
-    <section class="profile_header">
+    <section class="">
         <div class="container-fluid position-relative nav-bar p-0">
             <div class="container-lg position-relative p-0 " style="z-index: 9;">
                 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0 pt-4">
@@ -54,9 +54,16 @@ function active($currect_page)
                             <a href="Blog" class="nav-item nav-link <?php echo active('Blog'); ?>">Blog</a>
                         </div>
                         <div class="navbar-nav mr-4 py-0 float-right  ">
-                            <a href="Profile"
-                                class="nav-item nav-link border border-1 border-dark<?php echo active('Profile'); ?>rounded-pill">
-                                <i class="bi bi-person">Login</i></a>
+                            @if (session('username'))
+                                <a href="{{url('/Profile')}}"
+                                    class="nav-item nav-link border border-1 border-dark<?php    echo active('Profile'); ?>rounded-pill">
+                                    <i class="bi bi-person">Profile</i></a>
+                            @else
+                                <a href="{{url('/Login')}}"
+                                    class="nav-item nav-link border border-1 border-dark<?php    echo active('Profile'); ?>rounded-pill">
+                                    <i class="bi bi-person">Login</i></a>
+                            @endif
+
                         </div>
                     </div>
                 </nav>
@@ -64,8 +71,6 @@ function active($currect_page)
         </div>
 
     </section>
-    <!--End Header Section-->
-
     <!--Content Section-->
     <section class="h-100 gradient-custom-2">
         <div class="container py-5 h-100">
@@ -73,9 +78,9 @@ function active($currect_page)
                 <div class="col col-lg-9 col-xl-8">
                     <div class="card">
                         <div class="rounded-top text-white d-flex flex-row"
-                            style="background-color: #000; height:200px;">
+                            style="background-color: #000; height:210px;">
                             <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                                <img src="{{('website/upload/customers/'.$data->image)}}"
                                     alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                                     style="width: 150px; z-index: 1">
                                 <button type="button" data-mdb-button-init data-mdb-ripple-init
@@ -85,8 +90,9 @@ function active($currect_page)
                                 </button>
                             </div>
                             <div class="ms-3" style="margin-top: 130px;">
-                                <h5>Andy Horwitz</h5>
-                                <p>New York</p>
+                               <h2>{{$data->firstname}}{{$data->lastname}}</h2>
+                               <h4>{{$data->username}}</h4> 
+                               
                             </div>
                         </div>
                         <div class="p-4 text-black bg-body-tertiary">
@@ -107,31 +113,31 @@ function active($currect_page)
                         </div>
                         <div class="card-body p-4 text-black">
                             <div class="mb-5  text-body">
-                                <p class="lead fw-normal mb-1">About</p>
+                                <p class="lead fw-normal mb-1">Details</p>
                                 <div class="p-4 bg-body-tertiary">
-                                    <p class="font-italic mb-1">Web Developer</p>
-                                    <p class="font-italic mb-1">Lives in New York</p>
-                                    <p class="font-italic mb-0">Photographer</p>
+                                    <p class="font-italic mb-1">{{$data->email}}</p>
+                                    <p class="font-italic mb-1">{{$data->mobile}}</p>
+                                    <p class="font-italic mb-0">{{$data->gender}}</p>
                                 </div>
                             </div>
                             <div class="d-grid gap-2">
 
-                                <a href="Create Blog" class="btn btn-outline-info btn-lg mb-4">Create Blog</a>
+                                <a href="{{url('/CreateBlog')}}" class="btn btn-outline-info btn-lg mb-4">Create Blog</a>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mb-4 text-body">
 
                                 <p class="lead fw-normal mb-0">Recent Blog</p>
                                 <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
                             </div>
-                            <div class="row g-2  border rounded-3 mb-4 mt-4 bg-danger">
+                            <div class="row g-2  border rounded-3 mb-4 mt-4 ">
                                 <div class="col p-2">
-                                    <div class=" card-body bg-primary">
+                                    <div class=" card-body">
                                         Body Area
                                     </div>
                                     
                                 </div>
                                 <div class="col p-2">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp" class="card-img bg-secondary" alt="Card-Image">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp" class="card-img " alt="Card-Image">
                                     </div>
                             </div>
                            
@@ -143,13 +149,12 @@ function active($currect_page)
     </section>
     <!--End Content Section-->
 
-    <!--Footer Section Start-->
-    <section class="footer mt-5">
+<!--Footer Section Start-->
+<section class="footer mt-5"></section>
+<!--Footer Section End-->
 
-    </section>
 
-    <script src="{{url('website/js/bootstrap.js')}}"></script>
-    <!--Footer Section End-->
+<script src="{{url('website/js/bootstrap.js')}}"></script>
+
 </body>
-
 </html>

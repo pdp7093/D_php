@@ -55,11 +55,11 @@ function active($currect_page)
                         </div>
                         <div class="navbar-nav mr-4 py-0 float-right  ">
                             @if (session('username'))
-                                <a href="Profile"
+                                <a href="{{url('/Profile')}}"
                                     class="nav-item nav-link border border-1 border-dark<?php    echo active('Profile'); ?>rounded-pill">
-                                    <i class="bi bi-person">Profile</i></a>
+                                    <i class="bi bi-person">{{session('username')}}</i></a>
                             @else
-                                <a href="Signup"
+                                <a href="{{url('/Login')}}"
                                     class="nav-item nav-link border border-1 border-dark<?php    echo active('Profile'); ?>rounded-pill">
                                     <i class="bi bi-person">Login</i></a>
                             @endif

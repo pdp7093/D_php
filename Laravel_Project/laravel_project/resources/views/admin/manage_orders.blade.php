@@ -44,7 +44,7 @@
                                 <th>Weight</th>
                                 <th>Total Amount</th>
                                 <th>Orders Status</th>
-                                <th colspan="2">Action</th>
+                                <th colspan="3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,6 +64,10 @@
                                     <td>
                                         <a href="{{url('/Manage_Orders/' . $o->id)}}"
                                             class="btn  btn-outline-warning">Delete</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{url('/Status_Orders/' . $o->id)}}"
+                                            class="btn  btn-outline-info">Status</a>
                                     </td>
                                 </tr>
                             @endforeach

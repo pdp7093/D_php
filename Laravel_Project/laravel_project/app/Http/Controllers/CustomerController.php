@@ -90,8 +90,8 @@ class CustomerController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required|unique:customers',
-            'mobile' => 'required|unique:customers',
-            'gender' => 'required',
+            'mobile' => 'required|unique:customers|numeric',
+            'gender'=> 'required|in:Male,Female',
             'password' => 'required',
             'image' => 'required|image',
         ]);
@@ -133,15 +133,34 @@ class CustomerController extends Controller
     public function edit(customer $customer,$id)
     {
         //
-
+        $data=customer::find($id);
+        return view('website.edit_profile',['data'=>$data]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, customer $customer)
+    public function update(Request $request, customer $customer,$id)
     {
         //
+        $update=customer::find($id);
+        $update->firstname = $request->firstname;
+        $update->lastname = $request->lastname;
+        $update->email = $request->email;
+        $update->mobile = $request->mobile;
+        $update->gender = $request->gender;
+        
+        if($request->hasFile('image')) 
+        {
+            unlink('website/upload/customers/'.$update->image);
+            $file=$request->file('image');		
+            $filename=time().'_img.'.$request->file('image')->getClientOriginalExtension();
+            $file->move('website/upload/users/',$filename);  // use move for move image in public/images
+            $update->img=$filename;
+        }
+        $update->update();
+        Alert::success('Update Success', "User Update Successful");
+        return redirect('/Profile');
     }
 
     /**
@@ -152,5 +171,23 @@ class CustomerController extends Controller
         //
         $data = customer::find($id)->delete();
         return redirect('/Manage_Users');
+    }
+    public function status($id)
+    {
+        $data=customer::find($id);
+        if($data->status=="Unblock")
+        {
+            $data->status="Block";
+            $data->update();
+            Alert::success('Update Success', "User Status Successful");
+            return redirect('/Manage_Orders');
+        }
+        else
+        {
+            $data->status="Unblock";
+            $data->update();
+            Alert::success('Update Success', "User Status  Successful");
+            return redirect('/Manage_Orders');
+        }
     }
 }

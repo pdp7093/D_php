@@ -33,7 +33,7 @@ function active($currect_page)
         <div class="container py-5">
             <div class="row d-flex justify-content-center align-items-center">
                 <div class="col col-xl-12">
-                    <div class="card" style="border-radius: 1rem;">
+                    <div class="card" style="border-radius: 0rem;">
                         <div class="row g-0">
                             <div class="col-md-6 col-lg-5 d-none d-md-block" style="background-color:#e8e6e6">
                                 <img src="{{url('website/img/register.jpg')}}" alt="login form" class="img-fluid"
@@ -42,7 +42,7 @@ function active($currect_page)
                             <div class="col-md-6 col-lg-7 d-flex align-items-center" style="background-color:#e8e6e6">
                                 <div class="card-body p-3 p-lg-5 text-black">
 
-                                    <form action="/Signup" method="post" class="" id="login_form"
+                                    <form action="{{url('/Signup')}}" method="post" class="" id="login_form"
                                         enctype="multipart/form-data">
 
                                         <div class="d-flex align-items-center mb-3 pb-1">
@@ -146,7 +146,7 @@ function active($currect_page)
                                             </div>
                                         </div>
                                         <div class="form-group mt-2 mb-2 p-3 text-center">
-                                            <a href="Login" class=" text-info space "
+                                            <a href="{{url('/Login')}}" class=" text-info space "
                                                 style="text-decoration: underline;">Already Have
                                                 Account</a>
                                         </div>

@@ -45,7 +45,7 @@
                                 <th colspan="3">Products Descp</th>
                                 <th>Products Qty</th>
                                 <th>Products Status</th>
-                                <th colspan="2">Action</th>
+                                <th colspan="3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,10 +61,13 @@
                                     <td>{{$mp->p_qty}}</td>
                                     <td>{{$mp->p_status}}</td>
                                     <td>
-                                        <a href="edit_products" class="btn  btn-outline-primary">Edit</a>
+                                        <a href="{{url('/Edit_Products/'.$mp->id)}}" class="btn  btn-outline-primary">Edit</a>
                                     </td>
                                     <td>
                                     <a href="{{url('/Manage_Products/'.$mp->id)}}" class="btn  btn-outline-warning">Delete</a>
+                                    </td>
+                                    <td>
+                                    <a href="{{url('/Status_Products/'.$mp->id)}}" class="btn  btn-outline-info">Status</a>
                                     </td>
                                 </tr>
                             @endforeach

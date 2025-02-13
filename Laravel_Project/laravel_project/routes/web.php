@@ -25,7 +25,8 @@ Route::post('/Signup',[CustomerController::class,'store']);
 
 //Profile
 Route::get('/Profile',[CustomerController::class,'profile']);
-Route::get('/Edit Profile/{id}',[CustomerController::class,'edit']);
+Route::get('/EditProfile/{id}',[CustomerController::class,'edit']);
+Route::post('/EditProfile/{id}',[CustomerController::class,'update']);
 
 //About
 Route::get('/About', function () {
@@ -38,6 +39,8 @@ Route::post('/Contact',[ContactController::class,'store']);
 //Category & Product
 Route::get('/Categories',[CategoryController::class,'index']);
 Route::get('/ProductDetail/{id}',[ProductController::class,'product_show']);
+Route::get('/Order/{id}',[OrderController::class,'create']);
+Route::post('/Order',[OrderController::class,'store']);
 
 Route::get('/service', function () {
     return view('website.service');
@@ -48,7 +51,7 @@ Route::get('/gallery', function () {
 
 
 
-//Admin Routing
+//-------------------------------------Admin Routing--------------------------------------------------
 
 Route::get('/admin-login', [AdminController::class,'show']);
 Route::post('/admin-login',[AdminController::class,'adminlogin']);
@@ -63,20 +66,26 @@ Route::get('/dashboard', function () {
 Route::get('/Add_Categories', [CategoryController::class,'create']);
 Route::post('/Add_Categories', [CategoryController::class,'store']);
 Route::get('/Manage_Categories', [CategoryController::class,'show']);
+Route::get('/Edit_Categories/{id}', [CategoryController::class,'edit']);
+Route::post('/Edit_Categories/{id}', [CategoryController::class,'update']);
 Route::get('/Manage_Categories/{id}', [CategoryController::class,'destroy']);
+
 
 
 //Products
 Route::get('/Add_Products', [ProductController::class,'create']);
 Route::post('/Add_Products', [ProductController::class,'store']);
 Route::get('/Manage_Products', [ProductController::class,'show']);
+Route::get('/Edit_Products/{id}', [ProductController::class,'edit']);
+Route::post('/Edit_Products/{id}', [ProductController::class,'update']);
 Route::get('/Manage_Products/{id}', [ProductController::class,'destroy']);
-
+Route::get('/Status_Products/{id}',[ProductController::class,'status']);
 
 //Orders
 Route::get('/Add_Orders', [OrderController::class,'create']);
 Route::get('/Manage_Orders', [OrderController::class,'show']);
 Route::get('/Manage_Orders/{id}', [OrderController::class,'destroy']);
+Route::get('/Status_Orders/{id}',[OrderController::class,'status']);
 
 //Contact
 Route::get('/Manage_Contact', [ContactController::class,'show']);
@@ -85,4 +94,4 @@ Route::get('/Manage_Contact/{id}', [ContactController::class,'destroy']);
 //Users
 Route::get('/Manage_Users', [CustomerController::class,'show']);
 Route::get('/Manage_Users/{id}', [CustomerController::class,'destroy']);
-
+Route::get('/Status_Users/{id}',[CustomerController::class,'status']);

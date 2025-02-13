@@ -40,15 +40,22 @@ class CustomerController extends Controller
             'password' => 'required',
 
         ]);
-        $data = customer::where('username', $request->userna,e)->first();
+        $data = customer::where('username', $request->username)->first();
         if ($data) {
             if (Hash::check($request->password, $data->password)) {
-                
-                session()->put('uemail', $data->username);
-                session()->put('uimage', $data->image);
-                session()->put('uid', $data->id);
-                Alert::success('Login Success', "User Login Successfully");
-                return redirect('/');
+                if ($data->status == 'Unblock') {
+                    session()->put('username', $data->username);
+                    session()->put('uimage', $data->image);
+                    session()->put('uid', $data->id);
+                    Alert::success('Login Success', "User Login Successfully");
+                    return redirect('/');
+                }
+                else
+                {
+                    Alert::error('Login Failed', "You are block!");
+                    return redirect('/Login');   
+                }
+
             } else {
                 Alert::error('Login Failed', "Password Not Match!");
                 return redirect('/Login');
@@ -59,6 +66,7 @@ class CustomerController extends Controller
         }
 
     }
+ 
     /**
      * Store a newly created resource in storage.
      */
@@ -100,6 +108,9 @@ class CustomerController extends Controller
     public function show(customer $customer)
     {
         //
+        $data=customer::where('username',session()->get('username'))->first();
+       
+        return view('website.profile',['data'=>$data]);
     }
 
     /**

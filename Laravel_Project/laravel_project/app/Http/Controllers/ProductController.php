@@ -86,17 +86,39 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(product $product)
+    public function edit(product $product,$id)
     {
         //
+        $data=product::find($id);
+        return view('admin.edit_products',['data'=>$data]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, product $product)
+    public function update(Request $request, product $product,$id)
     {
         //
+        $update=product::find($id);
+       
+        $update->product_title=$request->product_title;
+        $update->product_price=$request->product_price;
+        $update->product_weight=$request->product_weight;
+        $update->product_descp=$request->product_descp;
+        $update->p_qty=$request->qty;
+        
+        if($request->hasFile('product_image')) 
+        {
+            unlink('website/upload/customers/'.$update->product_image);
+            $file=$request->file('product_image');		
+            $filename=time().'_img.'.$request->file('product_image')->getClientOriginalExtension();
+            $file->move('admin/img/Product/',$filename);  // use move for move image in public/images
+            $update->product_image=$filename;
+        }
+        $update->update();
+        Alert::success('Update Success', "Product Update Successful");
+        return redirect('/Manage_Products');
+
     }
 
     /**
@@ -108,5 +130,23 @@ class ProductController extends Controller
         $data=product::find($id)->delete();
         Alert::success('Delete Success','Product Delete Successfully');
         return redirect('/Manage_Products');
+    }
+    public function status($id)
+    {
+        $data=product::find($id);
+        if($data->p_status=="Instock")
+        {
+            $data->p_status="Outstock";
+            $data->update();
+            Alert::success('Update Success', "Product Outstock Successful");
+            return redirect('/Manage_Products');
+        }
+        else
+        {
+            $data->p_status="Instock";
+            $data->update();
+            Alert::success('Update Success', "Product Instock Successful");
+            return redirect('/Manage_Products');
+        }
     }
 }

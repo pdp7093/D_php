@@ -62,17 +62,34 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(category $category)
+    public function edit(category $category,$id)
     {
         //
+        $data=category::find($id);
+        return view('admin.edit_categories',['data'=>$data]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, category $category)
+    public function update(Request $request, category $category,$id)
     {
         //
+        $update=category::find($id);
+       
+        $update->categories_title=$request->categories_title;
+        if($request->hasFile('categories_image')) 
+        {
+            unlink('website/upload/users/'.$update->categories_image);
+            $file=$request->file('categories_image');		
+            $filename=time().'_img.'.$request->file('categories_image')->getClientOriginalExtension();
+            $file->move('website/upload/users/',$filename);  // use move for move image in public/images
+            $update->categories_image=$filename;
+        }
+        $update->update();
+        Alert::success('Category update','Category update Successfully');
+        return redirect('/Manage_Categories');
+
     }
 
     /**
@@ -85,5 +102,6 @@ class CategoryController extends Controller
         Alert::success('Category Delete','Category Delete Successfully');
         return redirect('/Manage_Categories');
     }
+   
 }
 
