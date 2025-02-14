@@ -30,7 +30,7 @@ class OrderController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     */
+     */                 
     public function store(Request $request)
     {
         //insert order
@@ -76,7 +76,7 @@ class OrderController extends Controller
 
     /**
      * Update the specified resource in storage.
-     */
+     */     
     public function update(Request $request, order $order)
     {
         //
@@ -99,14 +99,14 @@ class OrderController extends Controller
             $data->o_status="deliverd";
             $data->update();
             Alert::success('Update Success', "User Status Successful");
-            return redirect('/Manage_Users');
+            return redirect('/Manage_Orders');
         }
         else
         {
             $data->o_status="pending";
             $data->update();
             Alert::success('Update Success', "User Status  Successful");
-            return redirect('/Manage_Users');
+            return redirect('/Manage_Orders');
         }
     }
 }

@@ -113,7 +113,7 @@ class CustomerController extends Controller
         $insert->image = $filename;
 
         $insert->save();
-
+        Alert::success('Register Success', "User Register Successful");
         return redirect('/Login');
 
     }
@@ -147,6 +147,10 @@ class CustomerController extends Controller
         $update->firstname = $request->firstname;
         $update->lastname = $request->lastname;
         $update->email = $request->email;
+        if(session('uemail')!=$request->email)
+        {
+            session()->put('uemail', $request->email);
+        }
         $update->mobile = $request->mobile;
         $update->gender = $request->gender;
         
@@ -157,6 +161,7 @@ class CustomerController extends Controller
             $filename=time().'_img.'.$request->file('image')->getClientOriginalExtension();
             $file->move('website/upload/users/',$filename);  // use move for move image in public/images
             $update->img=$filename;
+            session()->put('uimage', $filename);
         }
         $update->update();
         Alert::success('Update Success', "User Update Successful");
@@ -169,7 +174,12 @@ class CustomerController extends Controller
     public function destroy(customer $customer, $id)
     {
         //
-        $data = customer::find($id)->delete();
+        $data = customer::find($id)->delete();  
+       
+        session()->pull('uemail');
+        session()->pull('uimage');
+        session()->pull('uid');
+        Alert::success('Delete Success', "User Delete Successful"); 
         return redirect('/Manage_Users');
     }
     public function status($id)
@@ -180,14 +190,14 @@ class CustomerController extends Controller
             $data->status="Block";
             $data->update();
             Alert::success('Update Success', "User Status Successful");
-            return redirect('/Manage_Orders');
+            return redirect('/Manage_Users');
         }
         else
         {
             $data->status="Unblock";
             $data->update();
             Alert::success('Update Success', "User Status  Successful");
-            return redirect('/Manage_Orders');
+            return redirect('/Manage_Users');
         }
     }
 }

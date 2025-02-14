@@ -34,7 +34,7 @@ class AdminController extends Controller
         {
             if (Hash::check($request->password, $data->password)) {
                 session()->put('aemail', $data->email);
-                session()->put('uid', $data->id);
+                session()->put('aid', $data->id);
                 Alert::success('Login Success', "Admin Login Successfully");
                 return redirect('/dashboard');
             }

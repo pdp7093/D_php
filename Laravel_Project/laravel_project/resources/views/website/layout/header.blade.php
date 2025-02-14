@@ -120,7 +120,7 @@ function active($currect_page)
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="{{url('Profile')}}">Profile</a>
-                                <a class="dropdown-item" href="{{url('Logout')}}" class="text-danger" style="color:red">Logout</a>
+                                <a class="dropdown-item" href="{{url('/Logout')}}" class="text-danger" style="color:red">Logout</a>
                             </div>
                         </div>
                     @endif

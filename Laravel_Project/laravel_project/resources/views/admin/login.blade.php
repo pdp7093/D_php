@@ -46,6 +46,7 @@ function active($currect_page)
 </head>
 
 <body>
+@include('sweetalert::alert')
     <div class="container-fluid bg-primary py-3 d-none d-md-block">
         <div class="container">
             <div class="row">
