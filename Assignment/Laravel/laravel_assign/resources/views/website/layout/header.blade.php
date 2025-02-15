@@ -1,3 +1,19 @@
+<?php $url_array = explode('/', $_SERVER['REQUEST_URI']); // current page url
+$url = end($url_array);
+$title = $url;
+
+function active($currect_page)
+{
+    $url_array = explode('/', $_SERVER['REQUEST_URI']); // current page url
+    $url = end($url_array);
+    if ($url == "") {
+        $url = "index";
+    }
+    if ($currect_page == $url) {
+        echo 'active'; //class name in css 
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +66,7 @@
 </head>
 
 <body>
-
+@include('sweetalert::alert')
     <div id="wrapper">
         <header class="market-header header">
             <div class="container-fluid">
@@ -65,21 +81,34 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item mx-2">
-                                <a class="nav-link" href="marketing-index.html">Home</a>
+                                <a class="nav-link <?php echo active('index'); ?>" href="{{ url('/') }}">Home</a>
                             </li>
 
                             <li class="nav-item mx-2">
-                                <a class="nav-link" href="{{ url('/Blog') }}">Blog</a>
+                                <a class="nav-link <?php echo active('Blog'); ?>" href="{{ url('/Blog') }}">Blog</a>
                             </li>
                             <li class="nav-item mx-2">
-                                <a class="nav-link" href="marketing-contact.html">Contact Us</a>
+                                <a class="nav-link <?php echo active('Category'); ?>" href="{{ url('/Category') }}">Category</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link <?php echo active('Contact'); ?>" href="{{ url('/Contact') }}">Contact Us</a>
                             </li>
                         </ul>
-                        <div class="mt-3">
+                        <div >
                             @if (!session('username'))
-                                <a href="{{ url('/Login') }}" class="btn btn-dark text-center">Login</a>
+                                <a href="{{ url('/Login') }}" class="btn btn-outline-secondary text-center text-white mt-3">Login</a>
                             @else
-                                <a href="{{ url('/Profile') }}" class="btn text-center">Profile</a>
+                            <div class="dropdown mt-2">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true">
+                                
+                                <img src="{{url('website/customer/'.session('uimage'))}}" alt="Profile" width="30rm" class="rounded-circle">
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{url('/Profile')}}">Profile</a>
+                                <a class="dropdown-item" href="{{url('/Logout')}}" class="text-danger" style="color:red">Logout</a>
+                            </div>
+                        </div>
                             @endif
 
                         </div>

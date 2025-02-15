@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\customer;
+use App\Models\post;
+use App\Models\category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -118,7 +120,12 @@ class CustomerController extends Controller
         //
         //$cust_id
         $data=customer::find(session('uid'));
-        return view('website.profile',['data'=>$data]);
+        
+        $post=post::join('customers','customers.id','=','posts.user_id')
+        ->join('categories','categories.id','=','posts.cate_id')
+        ->where('user_id',session('uid'))
+        ->get(['posts.*','categories.category_name']);
+        return view('website.profile',['data'=>$data],['post'=>$post]);
     }
 
     /**
