@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('website.index');
 });
 
+//------------------------------Website-----------------------------------------
 //Login
 Route::get('/Login', [CustomerController::class, 'login'])->middleware(\App\Http\Middleware\user_before_login::class);
 Route::post('/Login', [CustomerController::class, 'login_auth'])
@@ -30,8 +31,10 @@ Route::post('/Signup', [CustomerController::class, 'store'])
 //Profile
 Route::get('/Profile', [CustomerController::class, 'profile'])
     ->middleware(\App\Http\Middleware\user_after_login::class);
-Route::get('/EditProfile/{id}', [CustomerController::class, 'edit']);
-Route::post('/EditProfile/{id}', [CustomerController::class, 'update']);
+Route::get('/EditProfile/{id}', [CustomerController::class, 'edit'])
+->middleware(\App\Http\Middleware\user_after_login::class);
+Route::post('/EditProfile/{id}', [CustomerController::class, 'update'])
+->middleware(\App\Http\Middleware\user_after_login::class);
 
 //About
 Route::get('/About', function () {
