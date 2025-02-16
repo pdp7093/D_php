@@ -84,6 +84,7 @@ class PostController extends Controller
         ->where('title',$post_title)->first(['posts.*','categories.category_name','customers.firstname','customers.lastname']);
         return view('website.single_blog',['data'=>$data]);
     }
+
     public function publish($id)
     {
         //
@@ -105,24 +106,53 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(post $post)
+    public function edit(post $post,$id)
     {
         //
+        
+        $data=post::find($id);
+        $c_id=$data->cate_id;
+        $data1=category::find($c_id);
+        return view('website.edit',['data'=>$data],['cat'=>$data1]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, post $post)
+    public function update(Request $request, post $post,$id)
     {
         //
+        $data=post::find($id);
+       
+        $data->title=$request->title;
+        $data->content=$request->content;
+        
+          // img upload
+          if($request->hasFile('blog_image')) 
+          {
+            unlink('website/upload/blogs/'.$data->blog_image);
+            $file=$request->file('blog_image');		
+            $filename=time().'_img.'.$request->file('blog_image')->getClientOriginalExtension();
+            $file->move('website/upload/blogs/',$filename);  // use move for move image in public/images
+            
+            $data->blog_image=$filename;
+          }
+          $data->update();
+          Alert::success('Blog Update','Blog Update Successfully');
+          return redirect('/Profile');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(post $post)
+    public function destroy(post $post,$id)
     {
-        //
+        //Delete Record/Post
+        $data=post::find($id)->delete();
+        if($data)
+        {
+            alert::success('Post Delete','Your Post Delete Successfull');
+            return redirect('/Profile');
+        }
     }
 }

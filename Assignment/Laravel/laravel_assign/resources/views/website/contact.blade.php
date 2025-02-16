@@ -6,8 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    <h2>Contact <small class="hidden-xs-down hidden-sm-down">Nulla felis eros, varius sit amet volutpat non.
-                        </small></h2>
+                    <h2>Contact </h2>
                 </div><!-- end col -->
                 <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
                     <ol class="breadcrumb">
@@ -67,13 +66,14 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <form class="form-wrapper">
+                                <form action={{url('/Contact')}} method="post" class="form-wrapper">
                                     <h4>Contact form</h4>
-                                    <input type="text" class="form-control" placeholder="Your name">
-                                    <input type="text" class="form-control" placeholder="Email address">
-                                    <input type="text" class="form-control" placeholder="Phone">
-                                    <input type="text" class="form-control" placeholder="Subject">
-                                    <textarea class="form-control" placeholder="Your message"></textarea>
+                                    @csrf
+                                    <input type="text" class="form-control" name="name" placeholder="Your name"required>
+                                    <input type="email" class="form-control"  name="email" placeholder="Email address" required>
+                                    <input type="text" class="form-control" name="phone" placeholder="Phone">
+                                    <input type="text" class="form-control" name="subject" placeholder="Subject"required>
+                                    <textarea class="form-control" placeholder="Your message" name="message"></textarea>
                                     <button type="submit" class="btn btn-primary">Send <i
                                             class="fa fa-envelope-open-o"></i></button>
                                 </form>

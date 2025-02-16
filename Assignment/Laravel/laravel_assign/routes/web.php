@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +21,11 @@ Route::get('/CreateBlog',[PostController::class,'create']);
 Route::post('/CreateBlog',[PostController::class,'store']);
 Route::get('/Publish/{id}',[PostController::class,'publish']);
 Route::get('/Post/{title}',[PostController::class,'view']);
+Route::get('/Edit/{id}',[PostController::class,'edit']);
+Route::post('/Edit/{id}',[PostController::class,'update']);
+Route::get('/Delete/{id}',[PostController::class,'destroy']);
 
-Route::get('/About', function () {
-    return view('website.about');
-});
+Route::get('/Contact',[ContactController::class,'show']);
+Route::post('/Contact',[ContactController::class,'store']);
 
 Route::get('/Profile',[CustomerController::class,'show']);

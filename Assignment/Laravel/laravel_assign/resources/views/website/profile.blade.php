@@ -76,9 +76,10 @@
                                                 
                                                 <td>{{ $p->status }}</td>
                                                 <td>
-                                                    <a href="edit_post" class="btn btn-outline-primary">Edit Post</a>
+                                                    <a href="{{ url(path: '/Edit/'.$p->id) }}" class="btn btn-outline-primary">Edit Post</a>
                                                 </td>
-                                                <td> <a href="edit_post" class="btn btn-outline-danger">Delete</a></td>
+                                                <td> <a href="{{ url(path: '/Delete/'.$p->id) }}" class="btn btn-outline-danger">Delete</a></td>
+
                                                 <td><a href="{{ url('/Publish/'.$p->id) }}" class="btn btn-outline-success">Publish</a></td>
                                             </tr>
                                         @endforeach
