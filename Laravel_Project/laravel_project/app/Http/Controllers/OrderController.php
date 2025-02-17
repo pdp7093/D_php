@@ -46,6 +46,7 @@ class OrderController extends Controller
        $insert->o_qty=$request->qty;
        $insert->total_amount=$request->total;
        $insert->p_weight=$data->product_weight;
+       $insert->address=$data->address;
        
        $insert->save();
        Alert::success('Order Placed','Order Placed Sucessfully');

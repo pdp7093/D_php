@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('o_qty');
             $table->string('p_weight',60);
             $table->integer('total_amount');
-            
+            $table->string('address');
             $table->enum('o_status', ['pending', 'deliverd'])->default('pending');
             $table->timestamps();
         });

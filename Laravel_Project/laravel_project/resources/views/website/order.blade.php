@@ -23,6 +23,10 @@
                             <p class="help-block text-danger">{{ $message }}</p>
                         @enderror
                     </div>
+                    <div class="form-group mb-2">
+                        <label for="address" class="form-label">Deliver Address</label>
+                        <textarea name="address" id="address" cols="10" rows="5" class="form-control"></textarea>
+                    </div>
                     <input type="hidden" name="price" id="price" value="{{$data->product_price}}">
                     <div class="form-group mb-2">
                         <label for="total" class="form-label">Total Amount</label>

@@ -43,10 +43,12 @@ function active($currect_page)
     <link rel="stylesheet" href="{{url('website/css/slick.css')}}">
     <link rel="stylesheet" href="{{url('website/css/slicknav.css')}}">
     <link rel="stylesheet" href="{{url('website/css/style.css')}}">
+    <link rel="stylesheet" href="{{url('website/css/mycss.css')}}">
     <!-- <link rel="stylesheet" href="{{url('/responsive.')}}"> -->
 </head>
 
 <body>
+@include('sweetalert::alert')
     <!--[if lte IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
@@ -91,7 +93,12 @@ function active($currect_page)
                             </div>
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                                 <div class="float-right ">
-                                    <a href="Profile" class="btn btn-lg text-white border rounded-pill">Profile</a>
+                                    @if(session('uid'))
+                                    <a href={{url('/Profile') }} class="btn btn-lg text-white border rounded-circle">
+                                        <img src={{ url('website/upload/customers/'.session('uimage')) }} alt="" width="20rm" class="rounded-circle"></a>
+                                    @else
+                                    <a href="{{ url('/Login') }}" class="btn btn-lg text-white border rounded-pill">Login</a>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-12">

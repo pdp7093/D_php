@@ -40,7 +40,7 @@
         </div>
         <div class="col-lg-6 border ">
             <h5 class="border-bottom m-3">Order History</h5>
-            <table class="table table-hover text-center border">
+            <table class="table table-hover table-responsive text-center border">
                 
                 <thead>
                     <tr>
@@ -48,6 +48,7 @@
                         <th>Product Name</th>
                         <th>Qty</th>
                         <th>Total Amount</th>
+                        <th>Address</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -57,10 +58,11 @@
                    @foreach ($order as $o)
                         <tr>
                            
-                              <td class="row">{{++$i}}</td>  
+                              <td>{{++$i}}</td>  
                               <td>{{$o->product_title}}</td>
                               <td>{{$o->o_qty}}</td>
                               <td>{{$o->total_amount}}</td>
+                              <th>{{ $o->address }}</th>
                               <td>{{$o->o_status}}</td>
                            
                         </tr>
