@@ -20,6 +20,10 @@ class PostController extends Controller
     public function index()
     {
         //
+        $data=post::join('categories','categories.id','=','posts.cate_id')
+        ->join('customers','customers.id','=','posts.user_id')
+        ->where('posts.status','published')->get(['posts.*','categories.category_name','customers.firstname','customers.lastname']);
+        return view('website.index',['data'=>$data]);
     }
 
     /**

@@ -5,9 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('website.index');
-});
+Route::get('/',[PostController::class,'index']);
 //Signup & Login
 Route::get('/Login',[CustomerController::class,'login']);
 Route::post('/Login',[CustomerController::class,'login_auth']);
@@ -27,5 +25,5 @@ Route::get('/Delete/{id}',[PostController::class,'destroy']);
 
 Route::get('/Contact',[ContactController::class,'show']);
 Route::post('/Contact',[ContactController::class,'store']);
-
+//Profile
 Route::get('/Profile',[CustomerController::class,'show']);
