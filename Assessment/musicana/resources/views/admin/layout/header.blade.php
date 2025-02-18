@@ -59,7 +59,7 @@ function active($currect_page)
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar2">
             <div class="logo">
-                <a href="#">
+                <a href={{url('/dashboard')}}>
                     <img src="{{ url('admin/images/icon/logo-white.png') }}" alt="Cool Admin" />
                 </a>
             </div>
@@ -77,11 +77,32 @@ function active($currect_page)
                             
                         </li>
                         <li>
-                            <a href="inbox.html">
-                                <i class="fas fa-chart-bar"></i>Inbox</a>
-                            <span class="inbox-num">3</span>
+                            <a href={{url('/dashboard')}}>
+                                <i class="fas fa-chart-bar"></i>Dashboard</a>
+                        
                         </li>
                        
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                            <i class="fa-solid fa-compact-disc"></i>Album
+                                <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href={{ url('/AddAlbum') }}>
+                                    <i class="fa-solid fa-compact-disc"></i>Add Album</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/ManageAlbum') }}">
+                                    <i class="fa-solid fa-compact-disc"></i>Manage Album</a>
+                                </li>
+                            </ul>
+                        </li>
+
+
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                             <i class="fa-solid fa-music"></i>Music
@@ -89,13 +110,14 @@ function active($currect_page)
                                     <i class="fas fa-angle-down"></i>
                                 </span>
                             </a>
+
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="table.html">
+                                    <a href={{ url('/AddMusic') }}>
                                     <i class="fa-regular fa-circle-play"></i>Add Music</a>
                                 </li>
                                 <li>
-                                    <a href="form.html">
+                                <a href={{ url('/ManageMusic') }}>
                                     <i class="fa-regular fa-circle-play"></i>Manage Music</a>
                                 </li>
                             </ul>
@@ -252,40 +274,20 @@ function active($currect_page)
                     <nav class="navbar-sidebar2">
                         <ul class="list-unstyled navbar__list">
                             <li class="active has-sub">
-                                <a class="js-arrow" href="#">
+                                <a class="js-arrow" href={{url('/dashboard')}}>
                                     <i class="fas fa-tachometer-alt"></i>Dashboard
                                     <span class="arrow">
                                         <i class="fas fa-angle-down"></i>
                                     </span>
                                 </a>
-                                <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                    <li>
-                                        <a href="index.html">
-                                            <i class="fas fa-tachometer-alt"></i>Dashboard 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="index2.html">
-                                            <i class="fas fa-tachometer-alt"></i>Dashboard 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="index3.html">
-                                            <i class="fas fa-tachometer-alt"></i>Dashboard 3</a>
-                                    </li>
-                                    <li>
-                                        <a href="index4.html">
-                                            <i class="fas fa-tachometer-alt"></i>Dashboard 4</a>
-                                    </li>
-                                </ul>
+                                
                             </li>
                             <li>
-                                <a href="inbox.html">
-                                    <i class="fas fa-chart-bar"></i>Inbox</a>
-                                <span class="inbox-num">3</span>
+                                <a href={{ url('/dashboard') }}>
+                                    <i class="fas fa-chart-bar"></i>Dashboard</a>
+                                
                             </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fas fa-shopping-basket"></i>eCommerce</a>
-                            </li>
+                           
                             <li class="has-sub">
                                 <a class="js-arrow" href="#">
                                     <i class="fas fa-trophy"></i>Features

@@ -74,19 +74,8 @@ function active($currect_page)
                                             <li><a class="<?php echo active('index'); ?>" href="/">home</a></li>
                                             <li><a href="About" class="<?php echo active('About'); ?>">About</a></li>
 
-                                            <li><a href="Track" class="<?php echo active('Tracks'); ?>">tracks</a></li>
-                                            <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog">blog</a></li>
-                                                    <li><a href="single-blog">single-blog</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                                <ul class="submenu">
-                                                    <li><a href="elements">elements</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact">Contact</a></li>
+                                            <li><a href={{url('/Albums')}} class="<?php echo active('Albums'); ?>">Albums</a></li>
+
                                         </ul>
                                     </nav>
                                 </div>

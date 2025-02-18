@@ -11,12 +11,8 @@
                                         <span class="au-breadcrumb-span">You are here:</span>
                                         <ul class="list-unstyled list-inline au-breadcrumb__list">
                                             <li class="list-inline-item active">
-                                                <a href="#">Home</a>
+                                                <a href={{url('/dashboard')}}>Home</a>
                                             </li>
-                                            <li class="list-inline-item seprate">
-                                                <span>/</span>
-                                            </li>
-                                            <li class="list-inline-item">Dashboard</li>
                                         </ul>
                                     </div>
                                     <button class="au-btn au-btn-icon au-btn--green">
