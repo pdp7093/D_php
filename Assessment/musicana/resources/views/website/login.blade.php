@@ -87,7 +87,7 @@ function active($currect_page)
                   <p class="m-0 text-secondary text-center">Not have an account? <a href={{url('/Register')}} class="link-primary text-decoration-none">Register</a></p>
                 </div>
                 <div class="col-12">
-                  <p class="m-0 text-secondary text-right"><a href="">Forgot Password?</a></p>
+                  <p class="m-0 text-secondary text-right"><a href="{{url('/Forgot')}}">Forgot Password?</a></p>
                 </div>
               </div>
             </form>

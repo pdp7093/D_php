@@ -15,6 +15,10 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $fk=product::all();
+        
+       // return view('admin.add_products',['data'=>$fk]);
+        return view('website.index',['data'=>$fk]);
        
     }
     public function product_show($id)

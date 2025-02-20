@@ -34,11 +34,19 @@ Route::get('/view/{id}',[SongController::class,'view']);
 Route::get('/Review/{id}',[ReviewController::class,'create']);
 Route::post('/Review/{id}',[ReviewController::class,'store']);
 
+//Forgot Password
+Route::get('/Forgot', function () {
+    return view('website.forgot');
+});
+
+
 //-----------------Admin Routing--------------------------------
 //Admin Login
 Route::get('/AdminLogin',[AdminController::class,'show']);
 Route::post('/AdminLogin',[AdminController::class,'adminlogin']);
 Route::get('/AdminLogout',[AdminController::class,'adminlogout']);
+Route::get('/AdminRegister',[AdminController::class,'create']);
+Route::post('/AdminRegister',[AdminController::class,'store']);
 
 //Dashboard
 Route::get('/dashboard', function () {

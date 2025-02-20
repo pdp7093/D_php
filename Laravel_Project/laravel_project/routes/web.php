@@ -11,9 +11,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Middleware\admin_after_login;
 use App\Http\Middleware\admin_before_login;
 
-Route::get('/', function () {
-    return view('website.index');
-});
+Route::get('/',[ProductController::class,'index']);
 
 //------------------------------Website-----------------------------------------
 //Login

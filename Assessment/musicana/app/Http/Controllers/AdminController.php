@@ -24,6 +24,7 @@ class AdminController extends Controller
     public function create()
     {
         //
+        return view('admin.register');
     }
     public function adminlogin(Request $request)
     {
@@ -61,6 +62,26 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
+
+
+        $data=new admin;
+        $data->name=$request->name;
+        $data->email=$request->email;
+        $password=$request->password;
+        $password1=$request->password1;
+
+        if($password==$password1)
+        {
+            $data->password=Hash::make($request->password);
+            $data->save();
+            Alert::success('Register Success','Admin Register Successfully');
+            return redirect('/AdminLogin');
+        }
+        else{
+            Alert::error('Password Not','Mismatch password please enter again');
+            return redirect('/Register');
+        }
+
     }
 
     /**

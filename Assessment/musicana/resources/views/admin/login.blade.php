@@ -58,6 +58,9 @@
                                     <label>Password</label>
                                     <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
                                 </div>
+                                <div class="form-group mb-3 float-right">
+                                   <a href="{{ url('/Register') }}">Create An Account</a>
+                                </div>
                                 <div class="login-checkbox">
                                     
                                     <label>
@@ -65,7 +68,7 @@
                                     </label>
                                 </div>
                                 <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
-                               
+
                             </form>
                            
                         </div>

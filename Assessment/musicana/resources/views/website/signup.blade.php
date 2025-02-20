@@ -95,7 +95,7 @@ function active($currect_page)
                   <div class="col-12">
                     <div class="form-floating mb-3">
                       <input type="text" class="form-control" name="mobile" id="mobile" placeholder="1234567890">
-                      <label for="mobile" class="form-label">Email</label>
+                      <label for="mobile" class="form-label">Mobile Number</label>
                       @error('mobile')
                         <p class="help-block text-danger">{{$message}}</p>
                       @enderror

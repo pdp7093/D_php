@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\user;
 use App\Http\Controllers\Controller;
 use Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\welcomemail;
+
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -71,6 +74,7 @@ class UserController extends Controller
         $insert->firstname = $request->firstname;
         $insert->lastname = $request->lastname;
         $insert->email = $request->email;
+        $email = $request->email;
         $insert->mobile = $request->mobile;
 
         $insert->password = Hash::make($request->password);
@@ -81,8 +85,13 @@ class UserController extends Controller
         $insert->image = $filename;
 
         $insert->save();
+
+        //Mail Sending
+        $data = ['name' => $request->firstname . $request->lastname];
+        Mail::to($email)->send(new welcomemail($data));
         Alert::success('Register Success', "User Register Successful");
         return redirect('/Login');
+
 
     }
 
