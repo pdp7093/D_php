@@ -20,6 +20,10 @@ Route::post('/CheckLogin',[UserController::class,'login_auth']);
 //Profile Related Routes
 Route::get('/Profile',[UserController::class,'show']);
 Route::get('/Logout',[UserController::class,'logout']);
+Route::get('/ForgotPassword/{email}',[UserController::class,'forgot']);
+Route::post('/ForgotPassword/{email}',[UserController::class,'sendmail']);
+Route::get('/ResetPassword/{email}',[UserController::class,'reset_pass']);
+Route::post('/ResetPassword/{email}',[UserController::class,'forgot_pass']);
 
 //About
 Route::get('/About', function () {

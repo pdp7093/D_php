@@ -18,7 +18,8 @@
              
               <div class="d-flex pt-1">
                 <button class="btn btn-lg btn-outline-info mx-3">Edit</button>
-                <button class="btn btn-lg btn-outline-warning mx-3">Forgot Password</button>
+                <a class="btn btn-lg btn-outline-warning mx-3" href="{{url('/ForgotPassword/'.$data->email)}}">Forgot Password</a>
+                
                 <a href={{url('/Logout')}} class="btn btn-lg btn-outline-danger mx-3">Logout</a>
               </div>
             </div>

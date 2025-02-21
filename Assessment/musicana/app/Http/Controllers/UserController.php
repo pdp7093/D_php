@@ -87,8 +87,8 @@ class UserController extends Controller
         $insert->save();
 
         //Mail Sending
-        $data = ['name' => $request->firstname . $request->lastname];
-        Mail::to($email)->send(new welcomemail($data));
+       
+
         Alert::success('Register Success', "User Register Successful");
         return redirect('/Login');
 
@@ -98,6 +98,44 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
+    public function sendmail($email)
+    {
+        $ud=user::where('email',$email)->first();
+        $data=['name'=>$ud->firstname.$ud->lastname,'email'=>$ud->email];
+        $user['to']=$ud->email;
+        Mail::send('mail.mail',$data,function ($messages) use($user){
+            $messages->to($user['to']);
+            $messages->subject('Forgot Password');
+        });
+        Alert::success('Mail Send','Mail send successfully');
+        return redirect('/Profile');
+    }
+    public function forgot(user $user,$email)
+    {
+        //
+        $data = user::where('email',$email)->first();
+        return view('website.forgot', ['data' => $data]);
+
+    }
+    public function forgot_pass(user $user,$email,Request $request)
+    {
+        //
+        $data = user::where('email',$email)->first();
+        if($request->password==$request->re_password)
+        {
+            $data->password=$request->password;
+            
+            $data->update();
+
+            Alert::success('Password Update','Your password update sucessfully');
+            return redirect('/Profile');
+        }
+        else{
+            Alert::error('Password Mismatch','Please enter same password');
+        }
+        return view('website.forgot', ['data' => $data]);
+
+    }
     public function show(user $user)
     {
         //
@@ -119,7 +157,13 @@ class UserController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     */
+     */ 
+     public function reset_pass(user $user,$email)
+    {
+        //
+        $data=user::where('email',$email)->first();
+        return view('website.password',['data'=>$data]);
+    }
     public function edit(user $user)
     {
         //

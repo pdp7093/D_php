@@ -51,11 +51,19 @@ function active($currect_page)
 <body>
     @include('sweetalert::alert')
     <div class="forgot-password-box">
-        <form action={{url('/ForgotPassword/' . $data->email)}} method="post">
+        <form action={{url('/ResetPassword/' . $data->email)}} method="post">
             @csrf
             <h2>Forgot Password</h2>
-            <p>Enter your email to reset your password</p>
-            <input type="email" name="email" placeholder="Enter your email" value="{{$data->email}}">
+            <p>Enter Password</p>
+
+            <div class="form-group">
+                <label for="password"></label>
+                <input type="password" name="password" placeholder="Enter your new password"  class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="re_password"></label>
+                <input type="password" name="re_password" placeholder="Re-enter your new password"  class="form-control">
+            </div> 
             <button type="submit" class="mt-3"> Reset Password</button>
             <a href="{{url('/Profile')}}" class="mt-3 float-right text-primary">Go Back</a>
         </form>
