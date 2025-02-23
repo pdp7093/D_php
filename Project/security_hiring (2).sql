@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 02, 2025 at 07:12 AM
+-- Host: 127.0.0.1:3306
+-- Generation Time: Feb 23, 2025 at 04:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,6 +55,13 @@ CREATE TABLE `complain` (
   `complain` varchar(500) DEFAULT NULL,
   `complain_status` enum('solved','pending','','') NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `complain`
+--
+
+INSERT INTO `complain` (`c_id`, `cust_id`, `gu_id`, `complain`, `complain_status`) VALUES
+(77, 5, 16, 'Not Working Properly ', 'pending');
 
 -- --------------------------------------------------------
 
@@ -142,14 +149,6 @@ CREATE TABLE `feedback` (
   `feedback` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `feedback`
---
-
-INSERT INTO `feedback` (`feed_id`, `cust_id`, `Star`, `feedback`) VALUES
-(7, 5, 3, 'Submit'),
-(8, 5, 3, 'Submit');
-
 -- --------------------------------------------------------
 
 --
@@ -175,7 +174,8 @@ CREATE TABLE `guards` (
 --
 
 INSERT INTO `guards` (`gu_id`, `full_name`, `g_email`, `mobile_no`, `gender`, `address`, `id_proof`, `any disability`, `disability`, `profile_image`, `status`) VALUES
-(16, 'Pawan Singh', 'pawan@gmail.com', '1234567890', 'male', 'Maninagar', 'ACCOUNT QUESTION BANK - Google Docs.pdf', '', 'no', 'स्क्रीनशॉट 2024-02-09 113620.png', 'posted');
+(16, 'Pawan Singh', 'pawan@gmail.com', '1234567890', 'male', 'Maninagar', 'ACCOUNT QUESTION BANK - Google Docs.pdf', '', 'no', 'स्क्रीनशॉट 2024-02-09 113620.png', 'posted'),
+(17, 'Deepak Prasad', 'deepakprasad@gmail.com', '7897894560', 'male', 'Vatva', 'auction.pdf', '', 'no', 'Firefly Caution I have no filter 33850.jpg', 'available');
 
 -- --------------------------------------------------------
 
@@ -227,7 +227,8 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`req_id`, `cust_id`, `number_of_guard`, `for_where`, `request_status`, `address`, `remarks`, `posting_date`) VALUES
-(2, 5, 4, 'residency', 'approve', 'Om shanti Vatva Ahmedabad', 'no', '2024-12-19');
+(2, 5, 4, 'residency', 'approve', 'Om shanti Vatva Ahmedabad', 'no', '2024-12-19'),
+(3, 5, 2, 'Bank Security', 'pending', 'Narol', 'No', '2025-02-27');
 
 --
 -- Indexes for dumped tables
@@ -312,7 +313,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `complain`
 --
 ALTER TABLE `complain`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -342,7 +343,7 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT for table `guards`
 --
 ALTER TABLE `guards`
-  MODIFY `gu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `gu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `posting`
@@ -354,7 +355,7 @@ ALTER TABLE `posting`
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

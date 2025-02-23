@@ -38,13 +38,13 @@
                                             <td><?php echo $hr->remarks?></td>
                                             <?php if ($hr->request_status == 'pending') { ?>
                                                         <td class="text-primary text-uppercase"><?php echo $hr->request_status; ?></td><?php } ?>
-                                                    <?php if ($hr->request_status == 'approve') { ?>
+                                             <?php if ($hr->request_status == 'approve') { ?>
                                                         <td class="text-success text-uppercase"><?php echo $hr->request_status; ?></td><?php } ?>
                                                     <?php if ($hr->request_status == 'reject') { ?>
                                                         <td class="text-danger text-uppercase"><?php echo $hr->request_status; ?></td><?php } ?>                                                            
                                             <td><?php echo $hr->address?></td>
                                             <td>
-                                                <?php if(!$hr->request_status=='approve')
+                                                <?php if(!($hr->request_status=='approve'))
                                                 { ?>
 												<a href="Guard Posting?request_id=<?php echo $hr->req_id?>" class="btn btn-primary">Edit</a> <?php } ?>
 												<a href="delete?request=<?php echo $hr->req_id ?>" class="btn btn-danger mx-2">Delete</a>

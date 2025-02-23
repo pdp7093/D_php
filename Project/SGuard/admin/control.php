@@ -43,9 +43,9 @@ class control extends model
 
 			case '/index':
 				include_once('index.php');
-				$res=$this->select('customers');
-				$count=count($res);
-				
+				$res = $this->select('customers');
+				$count = count($res);
+
 				break;
 
 			case '/Add Guard':
@@ -104,6 +104,8 @@ class control extends model
 				$manage_guard = $this->select('guards');
 				include_once('manage_guard.php');
 				break;
+
+
 
 			case '/Guard Posting':
 				//$posting = $this->simple_joins('posting', 'guards', 'posting.gu_id=guards.gu_id', 'customers', 'posting.cust_id=customers.cust_id');
@@ -303,8 +305,7 @@ class control extends model
 							window.location='Manage Customer';
 						</script>";
 						}
-					} 
-					else {
+					} else {
 						echo "<script>
 							alert('Edit Status !');
 							window.location='Manage Customer';
@@ -402,6 +403,57 @@ class control extends model
 					}
 				}
 				break;
+			case '/edit':
+				if (isset($_REQUEST['edit_guard'])) {
+					$update = $_REQUEST['edit_guard'];
+					$where = array("gu_id" => $update);
+					$res = $this->select_where('guards', $where);
+					$fetch = $res->fetch_object();
+					$old_image = $fetch->profile_image;
+
+					if (isset($_REQUEST['submit'])) {
+
+						$full_name = $_REQUEST['full_name'];
+						$email = $_REQUEST['email'];
+						$mobile_no = $_REQUEST['mobile_no'];
+						$gender = $_REQUEST['gender'];
+						$address = $_REQUEST['address'];
+						if ($_FILES['profile_image']['size'] > 0) {
+							$image = $_FILES['image']['name'];
+							$path = "../guards/" . $image;
+							$tmp_img = $_FILES['image']['tmp_name'];
+							move_uploaded_file($tmp_img, $path);
+
+							$data = array("full_name" => $full_name, "g_email" => $email, "mobile_no" => $mobile_no, "gender" => $gender, "address" => $address, "profile_image" => $image);
+
+							$res = $this->update('guards', $data, $where);
+
+							if ($res) {
+
+								unlink("../guards/" . $old_image);
+								echo "<script>
+							alert('Upadte successful !');
+							window.location='Manage Guard';
+						</script>";
+							}
+						} else {
+							$data = array("full_name" => $full_name, "g_email" => $email, "mobile_no" => $mobile_no, "gender" => $gender, "address" => $address);
+							$res = $this->update('guards', $data, $where);
+
+							if ($res) {
+								
+								echo "<script>
+							alert('Upadte successful !');
+							window.location='Manage Guard';
+							</script>";
+							}
+						}
+
+					}
+				}
+				include_once('edit_guard.php');
+				break;
+
 			case '/status':
 				if (isset($_REQUEST['complain_status'])) {
 					$id = $_REQUEST['complain_status'];
@@ -422,46 +474,38 @@ class control extends model
 				}
 				//Block Customer
 
-				if(isset($_REQUEST['block']))
-				{
-					$cust_id=$_REQUEST['block'];
+				if (isset($_REQUEST['block'])) {
+					$cust_id = $_REQUEST['block'];
 					// $cust_id;
-					$data=array("cust_id"=>$cust_id);
-					
-					$status = 'block';
-						$where1 = array("status" => $status);
-						$block = $this->update('customers', $where1, $data);
+					$data = array("cust_id" => $cust_id);
 
-					if($block)
-					{
+					$status = 'block';
+					$where1 = array("status" => $status);
+					$block = $this->update('customers', $where1, $data);
+
+					if ($block) {
 						echo "<script>window.location='Manage Customer';</script>";
-					}
-					else
-					{
-						echo"<script>
+					} else {
+						echo "<script>
 							alert('Customer Not Blocked ');
 							window.location='edit_profile';
 						<script>";
 					}
 
 				}
-				if(isset($_REQUEST['unblock']))
-				{
-					$cust_id=$_REQUEST['unblock'];
+				if (isset($_REQUEST['unblock'])) {
+					$cust_id = $_REQUEST['unblock'];
 					// $cust_id;
-					$data=array("cust_id"=>$cust_id);
-					
-					$status = 'unblock';
-						$where1 = array("status" => $status);
-						$unblock = $this->update('customers', $where1, $data);
+					$data = array("cust_id" => $cust_id);
 
-					if($unblock)
-					{
+					$status = 'unblock';
+					$where1 = array("status" => $status);
+					$unblock = $this->update('customers', $where1, $data);
+
+					if ($unblock) {
 						echo "<script>window.location='Manage Customer';</script>";
-					}
-					else
-					{
-						echo"<script>
+					} else {
+						echo "<script>
 							alert('Customer Not Blocked ');
 							window.location='edit_profile';
 						<script>";
@@ -470,8 +514,8 @@ class control extends model
 				}
 
 				break;
-			
-			
+
+
 			case '/logout':
 				if (isset($_SESSION['email'])) {
 					unset($_SESSION['email']);

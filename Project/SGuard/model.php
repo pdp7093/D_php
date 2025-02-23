@@ -4,7 +4,11 @@ class model
 	public $conn = "";
 	function __construct()
 	{
-		$this->conn = new Mysqli('localhost', 'root', '', 'security_hiring');
+		$this->conn = new mysqli('127.0.0.1', 'root', '', 'security_hiring');
+		if ($this->conn->connect_error) {
+			die("Connection failed: " . $this->conn->connect_error);
+		}
+
 	}
 	//select function
 	function select($tbl)

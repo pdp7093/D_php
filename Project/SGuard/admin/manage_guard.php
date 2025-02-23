@@ -60,7 +60,7 @@
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <a href="" class="btn btn-primary">Edit</a>
+                                                    <a href="edit?edit_guard=<?php echo $data->gu_id ?>" class="btn btn-primary">Edit</a>
                                                     <a href="delete?del_guard=<?php echo $data->gu_id ?>"
                                                         class="btn btn-danger mx-2">Delete</a>
                                                 </td>

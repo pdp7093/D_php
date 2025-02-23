@@ -20,18 +20,16 @@
                                 <input type="text" name="posting_date" id="posting_date"
                                     value="<?php echo $fetch->posting_date ?>" disabled class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group ">
                                 <label for="nameOptions">Avaliable Guards </label>
-                                <select id="nameOptions" onchange="myfunction()" class="form-select">
-                                    
+                                <select id="nameOptions" onchange="myfunction()" class="form-control " style="margin-bottom: 15px;">
+                                    <option value="">----------Select Guards------------</option>
                                     <?php foreach($fetch1 as $gd) {?>
                                         <option value="<?php echo $gd->gu_id?>" name="<?php echo $gd->full_name?>"><?php echo $gd->full_name?></option>
                                         <?php }?>
                                 </select>
                                 <input type="hidden" name="selectedList"id="selectedList" >
-                                <input type="text" name="selectedName"id="selectedName" disabled class="form-control">
-
-                             
+                                <input type="text" name="selectedName"id="selectedName" disabled class="form-control mt-4">
 
                                 <?php $i = $fetch->number_of_guard; ?>
 
