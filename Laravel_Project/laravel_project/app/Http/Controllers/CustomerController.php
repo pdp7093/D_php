@@ -9,7 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use App\Mail\welcomemail;
+use Mail;
 class CustomerController extends Controller
 {
     /**
@@ -102,7 +103,7 @@ class CustomerController extends Controller
 
         $insert->firstname = $request->firstname;
         $insert->lastname = $request->lastname;
-        $insert->email = $request->email;
+        $email=$insert->email = $request->email;
         $insert->mobile = $request->mobile;
         $insert->gender = $request->gender;
         $insert->password = Hash::make($request->password);
@@ -113,6 +114,9 @@ class CustomerController extends Controller
         $insert->image = $filename;
 
         $insert->save();
+        $data=array("name"=>$insert->firstname.$insert->lastname,"email"=>$insert->email);
+        Mail::to($email)->send(new welcomemail($data));
+
         Alert::success('Register Success', "User Register Successful");
         return redirect('/Login');
 

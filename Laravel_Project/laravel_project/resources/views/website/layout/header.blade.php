@@ -41,6 +41,7 @@ function active($currect_page)
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{url('website/css/style.css')}}" rel="stylesheet">
+    <link href="{{url('website/css/extra-style.css')}}" rel="stylesheet">
 </head>
 
 </body >
