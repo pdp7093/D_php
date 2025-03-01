@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Mail\welcomemail;
+use App\Mail\forgotpassword;
 use Mail;
 class CustomerController extends Controller
 {
@@ -40,7 +41,7 @@ class CustomerController extends Controller
         $data = customer::where('email', $request->email)->first();
         if ($data) {
             if (Hash::check($request->password, $data->password)) {
-                
+
                 session()->put('uemail', $data->email);
                 session()->put('uimage', $data->image);
                 session()->put('uid', $data->id);
@@ -58,11 +59,12 @@ class CustomerController extends Controller
     }
     public function profile(customer $customer)
     {
-        $data=customer::where('email',session()->get('uemail'))->first();
-        $order=order::join('customers','customers.id','=','orders.cust_id')
-                ->join('products','products.id','=','orders.pro_id')
-                ->get(['orders.*','products.product_title']);
-        return view('website.profile', ["data" => $data],["order"=>$order]);
+        $data = customer::where('email', session()->get('uemail'))->first();
+        $order = order::join('customers', 'customers.id', '=', 'orders.cust_id')
+            ->join('products', 'products.id', '=', 'orders.pro_id')
+            ->get(['orders.*', 'products.product_title']);
+
+        return view('website.profile', ["data" => $data], ["order" => $order]);
     }
     public function logout()
     {
@@ -71,6 +73,65 @@ class CustomerController extends Controller
         session()->pull('uid');
         Alert::success('Logout Success', "User Logout Successful");
         return redirect('/Login');
+    }
+    public function forgot_v()
+    {
+        return view('website.forgot_password');
+    }
+    public function forgot(customer $customer, Request $request)
+    {
+        $data = customer::where('email', $request->email)->first();
+        $email = $data->email;
+        if ($email) {
+
+            session()->put('femail', $data->email);
+            //echo session('femail');
+            $otp = rand(100000, 999999);
+            //echo $otp;
+            setcookie('otp', $otp, time() + 600);
+
+            $mail = array("name" => $data->firstname . $data->lastname, "email" => $data->email, "otp" => $otp);
+            Mail::to($email)->send(new forgotpassword($mail));
+            Alert::success('Otp send', 'Otp Send successfully check your email');
+            return redirect('/ResetPassword');
+        } else {
+            Alert::error('Email not found', 'This id is not register with us');
+            return redirect('/ForgotPassword');
+        }
+    }
+    //Reset Password
+    public function reset()
+    {
+        return view('website.reset_password');
+    }
+    public function reset_password(Request $request)
+    {
+        
+           
+            if (isset($_COOKIE['otp'])) {
+                if ($request->otp == $_COOKIE['otp']) {
+                    $email = session('femail');
+                    
+                    $data = customer::where('email', $email)->first();
+                    if ($request->password == $request->re_password) {
+                        $data->password = Hash::make($request->password);
+                        $data->update();
+                        Alert::success('Reset Successfully', 'Password Reset Successfull');
+                        session()->pull('femail');
+                        setcookie("otp", "", time() - 600);
+                        return redirect('/ForgotPassword');
+                    } else {
+                        Alert::error('Not Match', 'Password Not Match');
+                        return redirect('/ResetPassword');
+                    }
+                } else {
+                    Alert::error('Otp Not Match', 'Please Enter Correct Password');
+                }
+            } else {
+                Alert::error('Otp Expiry', 'Time out, Please try again later');
+                return redirect('/ForgotPassword');
+            }
+        
     }
     /**
      * Show the form for creating a new resource.
@@ -92,7 +153,7 @@ class CustomerController extends Controller
             'lastname' => 'required',
             'email' => 'required|unique:customers',
             'mobile' => 'required|unique:customers|numeric',
-            'gender'=> 'required|in:Male,Female',
+            'gender' => 'required|in:Male,Female',
             'password' => 'required',
             'image' => 'required|image',
         ]);
@@ -103,7 +164,7 @@ class CustomerController extends Controller
 
         $insert->firstname = $request->firstname;
         $insert->lastname = $request->lastname;
-        $email=$insert->email = $request->email;
+        $email = $insert->email = $request->email;
         $insert->mobile = $request->mobile;
         $insert->gender = $request->gender;
         $insert->password = Hash::make($request->password);
@@ -114,9 +175,8 @@ class CustomerController extends Controller
         $insert->image = $filename;
 
         $insert->save();
-        $data=array("name"=>$insert->firstname.$insert->lastname,"email"=>$insert->email);
+        $data = array("name" => $insert->firstname . $insert->lastname, "email" => $insert->email);
         Mail::to($email)->send(new welcomemail($data));
-
         Alert::success('Register Success', "User Register Successful");
         return redirect('/Login');
 
@@ -134,37 +194,35 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(customer $customer,$id)
+    public function edit(customer $customer, $id)
     {
         //
-        $data=customer::find($id);
-        return view('website.edit_profile',['data'=>$data]);
+        $data = customer::find($id);
+        return view('website.edit_profile', ['data' => $data]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, customer $customer,$id)
+    public function update(Request $request, customer $customer, $id)
     {
         //
-        $update=customer::find($id);
+        $update = customer::find($id);
         $update->firstname = $request->firstname;
         $update->lastname = $request->lastname;
         $update->email = $request->email;
-        if(session('uemail')!=$request->email)
-        {
+        if (session('uemail') != $request->email) {
             session()->put('uemail', $request->email);
         }
         $update->mobile = $request->mobile;
         $update->gender = $request->gender;
-        
-        if($request->hasFile('image')) 
-        {
-            unlink('website/upload/customers/'.$update->image);
-            $file=$request->file('image');		
-            $filename=time().'_img.'.$request->file('image')->getClientOriginalExtension();
-            $file->move('website/upload/users/',$filename);  // use move for move image in public/images
-            $update->img=$filename;
+
+        if ($request->hasFile('image')) {
+            unlink('website/upload/customers/' . $update->image);
+            $file = $request->file('image');
+            $filename = time() . '_img.' . $request->file('image')->getClientOriginalExtension();
+            $file->move('website/upload/users/', $filename);  // use move for move image in public/images
+            $update->img = $filename;
             session()->put('uimage', $filename);
         }
         $update->update();
@@ -178,27 +236,24 @@ class CustomerController extends Controller
     public function destroy(customer $customer, $id)
     {
         //
-        $data = customer::find($id)->delete();  
-       
+        $data = customer::find($id)->delete();
+
         session()->pull('uemail');
         session()->pull('uimage');
         session()->pull('uid');
-        Alert::success('Delete Success', "User Delete Successful"); 
+        Alert::success('Delete Success', "User Delete Successful");
         return redirect('/Manage_Users');
     }
     public function status($id)
     {
-        $data=customer::find($id);
-        if($data->status=="Unblock")
-        {
-            $data->status="Block";
+        $data = customer::find($id);
+        if ($data->status == "Unblock") {
+            $data->status = "Block";
             $data->update();
             Alert::success('Update Success', "User Status Successful");
             return redirect('/Manage_Users');
-        }
-        else
-        {
-            $data->status="Unblock";
+        } else {
+            $data->status = "Unblock";
             $data->update();
             Alert::success('Update Success', "User Status  Successful");
             return redirect('/Manage_Users');

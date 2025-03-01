@@ -26,8 +26,10 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-7">
-                <h1 class="section-title position-relative text-center mb-5">Traditional & Delicious Ice Cream Since
-                    1950</h1>
+                <button>Users</button>
+                <button>Categories</button>
+                <button>Products</button>
+                <button></button>
             </div>
         </div>
         <div class="row">

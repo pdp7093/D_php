@@ -34,6 +34,13 @@ Route::get('/EditProfile/{id}', [CustomerController::class, 'edit'])
 Route::post('/EditProfile/{id}', [CustomerController::class, 'update'])
 ->middleware(\App\Http\Middleware\user_after_login::class);
 
+//Forgot Password Route
+Route::get('/ForgotPassword', [CustomerController::class, 'forgot_v']);
+Route::post('/ForgotPassword', [CustomerController::class, 'forgot']);
+//Route::post('/ResetPassword', [CustomerController::class, 'reset']);
+Route::get('/ResetPassword',[CustomerController::class,'reset']);
+Route::post('/ResetPassword',[CustomerController::class,'reset_password']);
+
 //About
 Route::get('/About', function () {
     return view('website.about');

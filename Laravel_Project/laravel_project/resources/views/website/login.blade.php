@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="form-group m-2 p-3">
-                        <a href="#" class="float-right text-primary" style="text-decoration: underline;">Forogot Password?</a>
+                        <a href="{{url('/ForgotPassword')}}" class="float-right text-primary" style="text-decoration: underline;">Forogot Password?</a>
                     </div>
                     <div class="form-group mx-3 p-3">
                         <button class="bg-primary btn-lg text-white btn-block rounded-pill" type="submit">Login<i
