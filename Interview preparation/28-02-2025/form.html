@@ -1,0 +1,77 @@
+<!--Html Form using Html css only-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Html Form</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="maindiv">
+      <form action="">
+        <div class="f1">
+          <h3>Step 1: Your details</h3>
+          <div class="innerdiv">
+            <label for="name">Name</label>
+            <input type="text" name="name" placeholder="First and last name" />
+          </div>
+          <div class="innerdiv">
+            <label for="name">Email</label>
+            <input type="email" name="email" placeholder="example@domain.com" />
+          </div>
+          <div class="innerdiv">
+            <label for="name">Phone</label>
+            <input type="text" name="name" placeholder="Eg. +447500000000" />
+          </div>
+        </div>
+
+        <div class="f2">
+          <h3>Step 2: Delivery address</h3>
+          <div class="innerdiv_area">
+            <label for="name">Address</label>
+            <textarea name="address" id="address" rows="5" cols="30"></textarea>
+          </div>
+          <div class="innerdiv">
+            <label for="name">Postcode</label>
+            <input type="text" name="postcode" />
+          </div>
+          <div class="innerdiv">
+            <label for="name">Country</label>
+            <input type="text" name="Country" />
+          </div>
+        </div>
+
+        <div class="f3">
+          <h3>Step 3: Card Details</h3>
+          <div class="radio">
+            <p>Card Type</p>
+            <input type="radio" name="card" id="" style="width: 20px;">Visa
+            <input type="radio" name="card" id=""style="width: 20px;"><span>AmEx</span>
+            <input type="radio" name="card" id=""style="width: 20px;"><span>Mastercard</span>
+          </div>
+          <div class="innerdiv">
+            <label for="cardnumber">Card Number</label>
+            <input type="text" name="cardnumber" />
+          </div>
+          <div class="innerdiv">
+            <label for="Security">Security Code</label>
+            <input type="text" name="Security" />
+          </div>
+          <div class="innerdiv">
+            <label for="cardname">Name on Card</label>
+            <input
+              type="text"
+              name="cardname"
+              placeholder="Extact Name as on the card"
+            />
+          </div>
+        </div>
+        <div class="done">
+          <input type="submit" value="Buy IT!" id="submit" name="submit" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

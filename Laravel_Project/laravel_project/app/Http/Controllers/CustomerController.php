@@ -12,6 +12,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Mail\welcomemail;
 use App\Mail\forgotpassword;
 use Mail;
+use Validator;
 class CustomerController extends Controller
 {
     /**
@@ -257,6 +258,62 @@ class CustomerController extends Controller
             $data->update();
             Alert::success('Update Success', "User Status  Successful");
             return redirect('/Manage_Users');
+        }
+    }
+
+    //Api Routes
+
+    public function api_show()
+    {
+        $data=customer::all();
+        return response()->json([
+            "status"=>200,
+            "customer"=>$data
+        ]); 
+    }
+    public function api_store(Request $request)
+    {
+        $validate=Validator::make($request->all(),[
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'email' => 'required|unique:customers',
+            'mobile' => 'required|unique:customers|numeric',
+            'gender' => 'required|in:Male,Female',
+            'password' => 'required',
+            'image' => 'required|image',            
+        ]);
+        if($validate->fails())
+        {
+            return [
+                'success'=>0,
+                'message'=>$validate->messages(),
+            ];
+
+        }
+        else
+        {
+            $insert = new customer;
+
+            $insert->firstname = $request->firstname;
+            $insert->lastname = $request->lastname;
+            $email = $insert->email = $request->email;
+            $insert->mobile = $request->mobile;
+            $insert->gender = $request->gender;
+            $insert->password = Hash::make($request->password);
+    
+            $file = $request->file('image');
+            $filename = time() . '_image.' . $request->file('image')->getClientOriginalExtension();
+            $file->move('website/upload/customers/', $filename);
+            $insert->image = $filename;
+    
+            $insert->save();
+            $data = array("name" => $insert->firstname . $insert->lastname, "email" => $insert->email);
+            Mail::to($email)->send(new welcomemail($data));
+
+            return response()->json([
+                'status'=>200,
+                'message'=>'Register Success',
+            ]);
         }
     }
 }
