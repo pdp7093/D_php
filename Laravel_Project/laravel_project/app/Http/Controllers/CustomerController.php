@@ -107,32 +107,32 @@ class CustomerController extends Controller
     }
     public function reset_password(Request $request)
     {
-        
-           
-            if (isset($_COOKIE['otp'])) {
-                if ($request->otp == $_COOKIE['otp']) {
-                    $email = session('femail');
-                    
-                    $data = customer::where('email', $email)->first();
-                    if ($request->password == $request->re_password) {
-                        $data->password = Hash::make($request->password);
-                        $data->update();
-                        Alert::success('Reset Successfully', 'Password Reset Successfull');
-                        session()->pull('femail');
-                        setcookie("otp", "", time() - 600);
-                        return redirect('/ForgotPassword');
-                    } else {
-                        Alert::error('Not Match', 'Password Not Match');
-                        return redirect('/ResetPassword');
-                    }
+
+
+        if (isset($_COOKIE['otp'])) {
+            if ($request->otp == $_COOKIE['otp']) {
+                $email = session('femail');
+
+                $data = customer::where('email', $email)->first();
+                if ($request->password == $request->re_password) {
+                    $data->password = Hash::make($request->password);
+                    $data->update();
+                    Alert::success('Reset Successfully', 'Password Reset Successfull');
+                    session()->pull('femail');
+                    setcookie("otp", "", time() - 600);
+                    return redirect('/ForgotPassword');
                 } else {
-                    Alert::error('Otp Not Match', 'Please Enter Correct Password');
+                    Alert::error('Not Match', 'Password Not Match');
+                    return redirect('/ResetPassword');
                 }
             } else {
-                Alert::error('Otp Expiry', 'Time out, Please try again later');
-                return redirect('/ForgotPassword');
+                Alert::error('Otp Not Match', 'Please Enter Correct Password');
             }
-        
+        } else {
+            Alert::error('Otp Expiry', 'Time out, Please try again later');
+            return redirect('/ForgotPassword');
+        }
+
     }
     /**
      * Show the form for creating a new resource.
@@ -261,37 +261,73 @@ class CustomerController extends Controller
         }
     }
 
-    //Api Routes
+    //------------------------------------Api Routes--------------------------------
 
     public function api_show()
     {
-        $data=customer::all();
+        $data = customer::all();
         return response()->json([
-            "status"=>200,
-            "customer"=>$data
-        ]); 
+            "status" => 200,
+            "customer" => $data
+        ]);
+    }
+
+    public function api_login(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required',
+
+        ]);
+        if ($validate->fails()) {
+            return [
+                'success' => 0,
+                'message' => $validate->messages()
+            ];
+        } else {
+            $data = customer::where('email', $request->email)->first();
+            if ($data) {
+                if (Hash::check($request->password, $data->password)) {
+                    return [
+                        'success'=>200,
+                        'message'=>"Login Success",
+                        'email'=>$data->email,
+                    ];
+                } else {
+                    return [
+                        'success'=>0,
+                        'message'=>"Password Not Match"
+                    ];
+                  
+                }
+            } else {
+                return [
+                    'success'=>0,
+                    'message'=>"Email Not Match"
+                ];
+                
+            }
+
+        }
     }
     public function api_store(Request $request)
     {
-        $validate=Validator::make($request->all(),[
-            'firstname'=>'required',
-            'lastname'=>'required',
+        $validate = Validator::make($request->all(), [
+            'firstname' => 'required',
+            'lastname' => 'required',
             'email' => 'required|unique:customers',
             'mobile' => 'required|unique:customers|numeric',
             'gender' => 'required|in:Male,Female',
             'password' => 'required',
-            'image' => 'required|image',            
+            'image' => 'required|image',
         ]);
-        if($validate->fails())
-        {
+        if ($validate->fails()) {
             return [
-                'success'=>0,
-                'message'=>$validate->messages(),
+                'success' => 0,
+                'message' => $validate->messages(),
             ];
 
-        }
-        else
-        {
+        } else {
             $insert = new customer;
 
             $insert->firstname = $request->firstname;
@@ -300,20 +336,22 @@ class CustomerController extends Controller
             $insert->mobile = $request->mobile;
             $insert->gender = $request->gender;
             $insert->password = Hash::make($request->password);
-    
+
             $file = $request->file('image');
             $filename = time() . '_image.' . $request->file('image')->getClientOriginalExtension();
             $file->move('website/upload/customers/', $filename);
             $insert->image = $filename;
-    
+
             $insert->save();
             $data = array("name" => $insert->firstname . $insert->lastname, "email" => $insert->email);
             Mail::to($email)->send(new welcomemail($data));
 
             return response()->json([
-                'status'=>200,
-                'message'=>'Register Success',
+                'status' => 200,
+                'message' => 'Register Success',
             ]);
         }
     }
+
+    
 }

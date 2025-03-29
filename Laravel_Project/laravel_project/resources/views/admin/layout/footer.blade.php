@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-12 mb-4">
                     <a href="index.html" class="navbar-brand m-0">
-                        <h1 class="m-0 mt-n2 display-4 text-primary"><span class="text-secondary">Mr</span>Dairy</h1>
+                        <h1 class="m-0 mt-n2 display-4 text-primary"><span class="text-secondary">SWEETI</span>FY</h1>
                     </a>
                 </div>
                 <div class="col-12 mb-4">

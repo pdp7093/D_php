@@ -12,12 +12,12 @@ return new class extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('p_name', 50);
-            $table->integer('p_price');
-            $table->string('p_weight',60);
-            $table->string('p_image');
-            $table->string('p_descp');
-            $table->integer('qty');
+            $table->string('product_name', 50);
+            $table->integer('product_price');
+            $table->string('product_weight',60);
+            $table->string('product_image');
+            $table->string('product_descp');
+            $table->integer('p_qty');
             $table->enum('status', ['Instock', 'Outstock'])->default('Instock');
             $table->foreignId('cate_id') // Foreign key field
             ->constrained('categories') // References `id` on `categories`

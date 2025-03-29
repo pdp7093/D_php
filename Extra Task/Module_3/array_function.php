@@ -43,7 +43,7 @@
 	//Array Reverse
 	echo "<hr><h1>Array Reverse</h1>";
 	$a=array("b"=>"Cat","a"=>"Tiger","c"=>"Dog");
-	print_r(array_reverse($a)); //This reverse the key and its value in array.
+	print_r(array_reverse($a)); //This Reverse Poistion of array element.
 	
 	//Array SizeOf
 	echo "<hr><h1>Array Size Of</h1>";

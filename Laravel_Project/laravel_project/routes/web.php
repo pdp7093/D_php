@@ -118,9 +118,3 @@ Route::middleware([admin_after_login::class])->group(function(){
     Route::get('/Status_Users/{id}', [CustomerController::class, 'status']);
 });
 
-
-
-//---------------------------------Api Website Route------------------------------------------------
-Route::middleware('api')->post('/api_register',[CustomerController::class,'api_store']);
-//---------------------------------Api Admin Route--------------------------------------------------
-Route::middleware('api')->get('/all_show',[CustomerController::class,'api_show']);

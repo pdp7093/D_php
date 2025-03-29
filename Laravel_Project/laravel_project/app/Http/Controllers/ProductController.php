@@ -7,6 +7,7 @@ use App\Models\category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Validator;
 class ProductController extends Controller
 {
     /**
@@ -55,6 +56,7 @@ class ProductController extends Controller
             'product_image' => 'required|image',
         ]);
 
+        
         $insert=new product();
 
         $insert->cate_id=$request->category;
@@ -153,4 +155,61 @@ class ProductController extends Controller
             return redirect('/Manage_Products');
         }
     }
+
+
+    //-----------------------Api Route -----------------------
+
+    public function api_manage_product()
+    {
+        $data=product::join('categories','products.cate_id','=','categories.id')
+            ->get(['products.*','categories.categories_title']);
+        
+        return response()->json([
+            "status"=>200,
+            "Product"=>$data
+        ]);
+    }
+
+    public function api_create_product(Request $request)
+    {
+        $validate=Validator::make($request->all(),[
+            'category'=>'required',
+            'product_title' => 'required|unique:products|max:255',
+            'product_price'=>'required',
+            'product_weight'=>'required',
+            'product_descp'=>'required',
+            'qty'=>'required',
+            'product_image' => 'required|image',
+        ]);
+        if($validate->fails()){
+            return [
+                'success'=>0,
+                'message'=>$validate->messages()
+            ];
+        }
+        else
+        {
+        $insert=new product();
+
+        $insert->cate_id=$request->category;
+        $insert->product_title=$request->product_title;
+        $insert->product_price=$request->product_price;
+        $insert->product_weight=$request->product_weight;
+        $insert->product_descp=$request->product_descp;
+        $insert->p_qty=$request->qty;
+
+        $file=$request->file('product_image');
+        $filename=time().'Product.'.$request->file('product_image')->getClientOriginalExtension();
+        $file->move('admin/img/Product/',$filename);
+        $insert->product_image=$filename;
+
+        $insert->save();
+
+        return response()->json([
+            "status"=>200,
+            "message"=>"Product Insert Successfully"
+        ]);
+        }
+    }
+
 }

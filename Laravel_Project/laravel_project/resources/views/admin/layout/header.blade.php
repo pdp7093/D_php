@@ -19,7 +19,7 @@ function active($currect_page)
 
 <head>
     <meta charset="utf-8">
-    <title>iCREAM - Ice Cream Shop admin Template | <?php  echo strtoupper(urlencode($title));?></title>
+    <title>SWEETIFY-Indulge in the Sweetest Delights! | <?php  echo strtoupper(urlencode($title));?></title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -90,7 +90,7 @@ function active($currect_page)
         <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
             <nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
                 <a href="/" class="navbar-brand d-block d-lg-none">
-                    <h1 class="m-0 display-4 text-primary"><span class="text-secondary">Mr</span>Dairy</h1>
+                    <h1 class="m-0 display-4 text-primary"><span class="text-secondary">SWEETI</span>FY</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
