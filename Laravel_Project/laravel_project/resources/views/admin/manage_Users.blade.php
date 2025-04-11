@@ -55,7 +55,7 @@
                                         <td>{{$u->gender}}</td>
                                         <td>{{$u->email}}</td>
                                         <td>{{$u->mobile}}</td>
-                                        <td>Customer Image</td>
+                                        <td><img src="{{url('website/upload/customers/'.$u->image)}}" alt="Customer Image" width="70rm"></td>
                                         <td>{{$u->status}}</td>
                                         <td>
                                             <a href="edit_products" class="btn  btn-outline-primary">Edit</a>

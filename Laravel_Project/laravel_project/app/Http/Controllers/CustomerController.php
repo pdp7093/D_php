@@ -42,12 +42,16 @@ class CustomerController extends Controller
         $data = customer::where('email', $request->email)->first();
         if ($data) {
             if (Hash::check($request->password, $data->password)) {
-
-                session()->put('uemail', $data->email);
-                session()->put('uimage', $data->image);
-                session()->put('uid', $data->id);
-                Alert::success('Login Success', "User Login Successfully");
-                return redirect('/');
+                if ($data->status == 'Unblock') {
+                    session()->put('uemail', $data->email);
+                    session()->put('uimage', $data->image);
+                    session()->put('uid', $data->id);
+                    Alert::success('Login Success', "User Login Successfully");
+                    return redirect('/');
+                } else {
+                    Alert::error('Login Failed', "You are Block !");
+                    return redirect('/Login');
+                }
             } else {
                 Alert::error('Login Failed', "Password Not Match!");
                 return redirect('/Login');
@@ -90,11 +94,12 @@ class CustomerController extends Controller
             $otp = rand(100000, 999999);
             //echo $otp;
             setcookie('otp', $otp, time() + 600);
-
-            $mail = array("name" => $data->firstname . $data->lastname, "email" => $data->email, "otp" => $otp);
-            Mail::to($email)->send(new forgotpassword($mail));
-            Alert::success('Otp send', 'Otp Send successfully check your email');
-            return redirect('/ResetPassword');
+            if (session('femail')) {
+                $mail = array("name" => $data->firstname . $data->lastname, "email" => $data->email, "otp" => $otp);
+                Mail::to($email)->send(new forgotpassword($mail));
+                Alert::success('Otp send', 'Otp Send successfully check your email');
+                return redirect('/ResetPassword');
+            }
         } else {
             Alert::error('Email not found', 'This id is not register with us');
             return redirect('/ForgotPassword');
@@ -103,35 +108,44 @@ class CustomerController extends Controller
     //Reset Password
     public function reset()
     {
-        return view('website.reset_password');
+        if (session('femail')) {
+            return view('website.reset_password');
+        } else {
+            Alert::error('Internal Error', 'Internal Error, Report us ');
+            return redirect('/ForgotPassword');
+        }
     }
     public function reset_password(Request $request)
     {
+        if (session('femail')) {
+            if (isset($_COOKIE['otp'])) {
+                if ($request->otp == $_COOKIE['otp']) {
+                    $email = session('femail');
 
-
-        if (isset($_COOKIE['otp'])) {
-            if ($request->otp == $_COOKIE['otp']) {
-                $email = session('femail');
-
-                $data = customer::where('email', $email)->first();
-                if ($request->password == $request->re_password) {
-                    $data->password = Hash::make($request->password);
-                    $data->update();
-                    Alert::success('Reset Successfully', 'Password Reset Successfull');
-                    session()->pull('femail');
-                    setcookie("otp", "", time() - 600);
-                    return redirect('/ForgotPassword');
+                    $data = customer::where('email', $email)->first();
+                    if ($request->password == $request->re_password) {
+                        $data->password = Hash::make($request->password);
+                        $data->update();
+                        Alert::success('Reset Successfully', 'Password Reset Successfull');
+                        session()->pull('femail');
+                        setcookie("otp", "", time() - 600);
+                        return redirect('/ForgotPassword');
+                    } else {
+                        Alert::error('Not Match', 'Password Not Match');
+                        return redirect('/ResetPassword');
+                    }
                 } else {
-                    Alert::error('Not Match', 'Password Not Match');
-                    return redirect('/ResetPassword');
+                    Alert::error('Otp Not Match', 'Please Enter Correct Password');
                 }
             } else {
-                Alert::error('Otp Not Match', 'Please Enter Correct Password');
+                Alert::error('Otp Expiry', 'Time out, Please try again later');
+                return redirect('/ForgotPassword');
             }
         } else {
-            Alert::error('Otp Expiry', 'Time out, Please try again later');
+            Alert::error('Internal Error', 'Internal Error, Report us ');
             return redirect('/ForgotPassword');
         }
+
 
     }
     /**
@@ -289,23 +303,23 @@ class CustomerController extends Controller
             if ($data) {
                 if (Hash::check($request->password, $data->password)) {
                     return [
-                        'success'=>200,
-                        'message'=>"Login Success",
-                        'email'=>$data->email,
+                        'success' => 200,
+                        'message' => "Login Success",
+                        'email' => $data->email,
                     ];
                 } else {
                     return [
-                        'success'=>0,
-                        'message'=>"Password Not Match"
+                        'success' => 0,
+                        'message' => "Password Not Match"
                     ];
-                  
+
                 }
             } else {
                 return [
-                    'success'=>0,
-                    'message'=>"Email Not Match"
+                    'success' => 0,
+                    'message' => "Email Not Match"
                 ];
-                
+
             }
 
         }
@@ -353,5 +367,5 @@ class CustomerController extends Controller
         }
     }
 
-    
+
 }

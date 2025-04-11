@@ -9,8 +9,8 @@
                     <img src="{{url('website/upload/customers/' . $data->image)}}" alt=""
                         style=" border-radius: 8px; height:150px;padding: 5px; box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5); display: block; margin: auto;">
                     <div class="mt-3">
-                        <a href="{{url('/EditProfile/') . $data->id}}" class="btn btn-outline-secondary mx-1">Edit Profile</a>
-                        <a href="#" class="btn btn-outline-danger mx-1">Forgot Password</a>
+                        <a href="{{url('/EditProfile/'. $data->id)}}" class="btn btn-outline-secondary mx-1">Edit Profile</a>
+                        <a href="{{url('/ForgotPassword')}}" class="btn btn-outline-danger mx-1">Forgot Password</a>
                         
                         <a href="{{url('/Logout')}}" class="btn btn-outline-dark mx-1">Logout</a>
                     </div>

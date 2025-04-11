@@ -1,12 +1,4 @@
-<?php 
-if(!isset($_SESSION['femail']))
-{
-	echo "<script>
-            alert('Enter Email');
-			window.location='ForgotPassword'
-		</script>";
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +31,9 @@ if(!isset($_SESSION['femail']))
 
 <body>
     @include('sweetalert::alert')
+   
+    
+    
     <div class="forgot-password-box">
         <div class="border">
             <form action={{url('/ResetPassword')}} method="post">
@@ -49,10 +44,10 @@ if(!isset($_SESSION['femail']))
                     <input type="otp" name="otp" placeholder="Enter your otp" class="form-control">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="password" placeholder="Enter your New Password"class="form-control">
+                    <input type="password" name="password" placeholder="Enter your New Password"class="form-control">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="re_password" placeholder="Re-Enter your New Password"class="form-control">
+                    <input type="password" name="re_password" placeholder="Re-Enter your New Password"class="form-control">
                 </div>
                 <button type="submit" class="mt-3" > Reset
                     Password</button>
@@ -60,6 +55,7 @@ if(!isset($_SESSION['femail']))
             </form>
         </div>
     </div>
+  
 
   
     <!--footer start-->

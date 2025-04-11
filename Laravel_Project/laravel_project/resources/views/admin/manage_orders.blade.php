@@ -29,8 +29,7 @@
         <div class="row justify-content-center overflow-auto">
 
             <div class="col-lg-12">
-                <a href="Add_Orders" class="float-right btn btn-info rounded-pill m-3  mx-5 mt-4 rounded-3 btn-lg">Add
-                    Orders</a>
+                
                 <div class="contact-form bg-light rounded p-5 ">
                     <div id="success"></div>
                     <table class="table table-hover table-responsive col mt-5 text-center">

@@ -26,7 +26,7 @@ class ProductController extends Controller
     {
        $cid=$id;
       
-       $data=product::where('cate_id','=',$cid)->get();
+       $data=product::where('cate_id','=',$cid)->where('p_status',"Instock")->get();
         return view('website.product_detail',['data'=>$data]);
     }
     /**

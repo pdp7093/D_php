@@ -103,7 +103,7 @@ Route::middleware([admin_after_login::class])->group(function(){
     Route::get('/Status_Products/{id}', [ProductController::class, 'status']);
 
     //Orders
-    Route::get('/Add_Orders', [OrderController::class, 'create']);
+    
     Route::get('/Manage_Orders', [OrderController::class, 'show']);
     Route::get('/Manage_Orders/{id}', [OrderController::class, 'destroy']);
     Route::get('/Status_Orders/{id}', [OrderController::class, 'status']);
