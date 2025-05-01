@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\customer;
 use App\Models\order;
 use App\Models\product;
+use App\Models\cart;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -68,7 +69,9 @@ class CustomerController extends Controller
         $order = order::join('customers', 'customers.id', '=', 'orders.cust_id')
             ->join('products', 'products.id', '=', 'orders.pro_id')
             ->get(['orders.*', 'products.product_title']);
-
+        
+      
+        
         return view('website.profile', ["data" => $data], ["order" => $order]);
     }
     public function logout()

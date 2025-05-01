@@ -13,6 +13,7 @@
                         <a href="{{url('/ForgotPassword')}}" class="btn btn-outline-danger mx-1">Forgot Password</a>
                         
                         <a href="{{url('/Logout')}}" class="btn btn-outline-dark mx-1">Logout</a>
+                        <a href="{{url('/ViewCart')}}" class="btn btn-outline-primary mx-1 mt-2">View Cart</a>
                     </div>
                 </div>
                 <div class="border-top border-2 border-dark p-3" >
@@ -39,6 +40,7 @@
                         </tbody>
                     </table>
                 </div>
+              
             </div>
 
             <div class="col-lg-6  mx-2 h-100">

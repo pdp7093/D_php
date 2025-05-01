@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,12 @@ Route::get('/Order/{id}', [OrderController::class, 'create'])
     ->middleware(\App\Http\Middleware\user_after_login::class);
 Route::post('/Order', [OrderController::class, 'store'])
     ->middleware(\App\Http\Middleware\user_after_login::class);
+
+// Carts
+Route::post('/addtocart/{id}',[CartController::class,'store'])
+->middleware(\App\Http\Middleware\user_after_login::class);;
+Route::get('/ViewCart',[CartController::class,'show']);
+Route::get('/removecart/{id}',[CartController::class,'destroy']);
 
 //Services & Gallery
 Route::get('/service', function () {

@@ -58,6 +58,7 @@
 
     <!-- Template Javascript -->
     <script src="{{url('admin/js/main.js')}}"></script>
+
 </body>
 
 </html>

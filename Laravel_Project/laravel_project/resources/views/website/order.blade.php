@@ -33,7 +33,7 @@
                     <input type="hidden" name="price" id="price" value="{{$data->product_price}}">
                     <div class="form-group mb-2">
                         <label for="total" class="form-label">Total Amount</label>
-                        <input type="text" name="total" id="total" class="form-control">
+                        <input type="text" name="total" id="total" class="form-control" readonly>
                     </div>
                     <div class="mt-5">
                         <button class="btn btn-block btn-outline-danger" type="submit" data-toggle="modal"

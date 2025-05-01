@@ -56,6 +56,7 @@ class OrderController extends Controller
 
     }
 
+    
     /**
      * Display the specified resource.
      */
@@ -111,5 +112,6 @@ class OrderController extends Controller
             Alert::success('Update Success', "User Status  Successful");
             return redirect('/Manage_Orders');
         }
+        
     }
 }

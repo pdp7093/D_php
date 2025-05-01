@@ -57,7 +57,7 @@
     <script src="{{url('website/mail/contact.js')}}"></script>
 
     <!-- Template Javascript -->
-    <script src="{{url('website/js/main.js')}}"></script>
+    <script src="{{url('website/js/myjs.js')}}"></script>
 </body>
 
 </html>
