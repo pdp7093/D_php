@@ -42,18 +42,20 @@
                             <h5 class="font-weight-bold mb-4">{{$p->product_title}}</h5>
                             <h5 class="font-weight-bold mb-4 border-top">&#8377;{{$p->product_price}}</h5>
                             <!--add to cart-->
-                            <button class="btn btn-sm btn-primary mb-3" onclick="addtocart()" id="addtocart">Add to cart</button>
-                            <div id="addqty" style="display: none;">
-                                <form action="{{('/addtocart/'.$p->id)}}" method="post" class="m-4 border border-dark border-2 p-4 rounded">
+                           
+                            <div id="addqty" class="mt-3">
+                                <form action="{{('/addtocart/'.$p->id)}}" method="post" class=" rounded px-5">
                                     @csrf
                                     <div class="form-group mb-3">
                                         <label for="qty">Enter the qty</label>
                                         <input type="number" name="qty" id="qty" class="form-control" min="1">
                                     </div>
-                                    <input type="submit" value="Add to cart" name="submit" class="btn btn-sm btn-primary">
+                                    <input type="submit" name="submit" value="Addtocart" name="submit" class="btn btn-sm btn-primary">
+                                    
                                 </form>
                             </div>
                             <!--end of cart-->
+                            <h5 class="font-weight-bold m-2">OR</h5>
                             <a href="{{('/Order/' . $p->id)}}" class="btn btn-sm btn-secondary">Order Now</a>
                         </div>
                     </div>
