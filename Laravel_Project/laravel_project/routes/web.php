@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CashfreePaymentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -56,14 +57,16 @@ Route::get('/Categories', [CategoryController::class, 'index']);
 Route::get('/ProductDetail/{id}', [ProductController::class, 'product_show']);
 Route::get('/Order/{id}', [OrderController::class, 'create'])
     ->middleware(\App\Http\Middleware\user_after_login::class);
-Route::post('/Order', [OrderController::class, 'store'])
+Route::post('/Order', [CashfreePaymentController::class, 'store'])->name('store')
     ->middleware(\App\Http\Middleware\user_after_login::class);
 
 // Carts
 Route::post('/addtocart/{id}',[CartController::class,'store'])
+->middleware(\App\Http\Middleware\user_after_login::class);
+Route::get('/ViewCart',[CartController::class,'show'])
 ->middleware(\App\Http\Middleware\user_after_login::class);;
-Route::get('/ViewCart',[CartController::class,'show']);
-Route::get('/removecart/{id}',[CartController::class,'destroy']);
+Route::get('/removecart/{id}',[CartController::class,'destroy'])
+->middleware(\App\Http\Middleware\user_after_login::class);;;
 
 //Services & Gallery
 Route::get('/service', function () {
@@ -72,6 +75,14 @@ Route::get('/service', function () {
 Route::get('/gallery', function () {
     return view('website.gallery');
 });
+
+//Payment Gateway Route
+Route::get('cashfree/payments/create', [CashfreePaymentController::class, 'create'])->name('callback');
+//Route::post('cashfree/payments/store', [CashfreePaymentController::class, 'store'])->name('store');
+Route::any('cashfree/payments/success', [CashfreePaymentController::class, 'success'])->name('success');
+
+
+
 
 
 

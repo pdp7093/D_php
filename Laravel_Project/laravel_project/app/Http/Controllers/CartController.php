@@ -43,19 +43,10 @@ class CartController extends Controller
 
                 $insert->save();
 
-                $data = product::find($id);
-                $total_qty = $data->p_qty;
-
-                $remain_qty = $total_qty - $request->qty;
-                if ($remain_qty >= $total_qty) {
-                    
-                    $data->p_qty = $remain_qty;
-                    $data->update();
+               
                     Alert::success('Add to Cart', 'Product Added in Cart Sucessfully');
                     return redirect('/Profile');
-                }
-                Alert::error('Available Stock', 'Available Qty' . $total_qty);
-                return redirect('/Categories');
+                
         
 
 
