@@ -66,6 +66,7 @@ class CashfreePaymentController extends Controller
             $data->update();
             
         }
+        cart::find($cart_id)->delete();
         //end of cart order
 
 
@@ -110,7 +111,7 @@ class CashfreePaymentController extends Controller
         $response = json_decode($resp);
         //dd($response);
         $insert->save();
-        cart::find($cart_id)->delete();
+       
         return redirect()->to(json_decode($resp)->payment_link);
 
     }
